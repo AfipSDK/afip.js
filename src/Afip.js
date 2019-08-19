@@ -1,3 +1,7 @@
+const path = require('path');
+
+const Sign = require('./sign');
+
 /**
  * Software Development Kit for AFIP web services
  * 
@@ -7,14 +11,13 @@
  * 
  * @link http://www.afip.gob.ar/ws/ AFIP Web Services documentation
  * 
- * @author 	Ivan Muñoz ivanalemunioz@gmail.com
+ * @author 	Afip SDK afipsdk@gmail.com
  * @package Afip
- * @version 0.5
+ * @version 0.6
  **/
-
 module.exports = Afip;
 
-function Afip (options){
+function Afip(options){
 
 	/**
 	 * File name for the WSDL corresponding to WSAA
@@ -92,8 +95,8 @@ function Afip (options){
 
 
 	this.RES_FOLDER = __dirname+'/Afip_res/';
-	this.CERT 		= this.RES_FOLDER+options['cert'];
-	this.PRIVATEKEY = this.RES_FOLDER+options['key'];
+	this.CERT 		= path.resolve(this.RES_FOLDER, options['cert']);
+	this.PRIVATEKEY = path.resolve(this.RES_FOLDER, options['key']);
 	this.WSAA_WSDL 	= this.RES_FOLDER+'wsaa.wsdl';
 
 	if (options['production'] === true) {
@@ -185,7 +188,6 @@ Afip.prototype.GetServiceTA = function(service, callback, recreate)
  **/
 Afip.prototype.CreateServiceTA = function(service)
 {
-
 	return new Promise((resolve,reject)=>{
 		// Creating TRA
 		var date 	= new Date(),
@@ -198,8 +200,6 @@ Afip.prototype.CreateServiceTA = function(service)
 		tra = tra.trim();
 
 		// Sign TRA
-		var Sign = require('./sign').sign;
-
 		Sign({
 			content: tra,
 			key: this.PRIVATEKEY,

@@ -130,21 +130,6 @@ function Afip (options){
 			}
 		});
 	}
-
-	var fs = require('fs');
-
-	function check_file(path, callback) {
-		fs.access(path, fs.constants.F_OK, (err) => {
-			if (err) {throw new Error("Failed to open file "+path);}
-			else{callback();}
-		});
-	}
-
-	check_file(this.CERT, ()=>{
-		check_file(this.PRIVATEKEY, ()=>{
-			check_file(this.WSAA_WSDL, ()=>{})
-		})
-	})
 }
 
 /**

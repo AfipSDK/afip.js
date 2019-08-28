@@ -1,6 +1,7 @@
+const fs = require('fs');
 const path = require('path');
-
-const Sign = require('./sign');
+const soap = require('soap');
+const forge = require('node-forge');
 
 /**
  * Software Development Kit for AFIP web services
@@ -148,7 +149,6 @@ Afip.prototype.GetServiceTA = function(service, callback, recreate)
 	recreate = recreate === false ? false : true;
 	var ta_file = this.RES_FOLDER+'TA-'+this.options['CUIT']+'-'+service+'.json';
 
-	var fs = require('fs');
 	fs.access(ta_file, fs.constants.F_OK, (err) => {
 		if (!err) {
 			var ta_data 		= require(ta_file),
@@ -189,7 +189,7 @@ Afip.prototype.GetServiceTA = function(service, callback, recreate)
 Afip.prototype.CreateServiceTA = function(service)
 {
 	return new Promise((resolve,reject)=>{
-		// Creating TRA
+		// Create TRA
 		var date 	= new Date(),
 			tra 	= '<?xml version="1.0" encoding="UTF-8" ?><loginTicketRequest version="1.0"><header><uniqueId>{uniqueId}</uniqueId><generationTime>{generationTime}</generationTime><expirationTime>{expirationTime}</expirationTime></header><service>{service}</service></loginTicketRequest>';
 
@@ -198,17 +198,47 @@ Afip.prototype.CreateServiceTA = function(service)
 		tra = tra.replace('{expirationTime}', new Date(date.getTime()+600000).toISOString());
 		tra = tra.replace('{service}', service);
 		tra = tra.trim();
+		
+		// Get cert
+		const certPromise = new Promise((resolve, reject) => {
+			fs.readFile(this.CERT, { encoding:'utf8' }, (err, data) => err ? reject(err) : resolve(data));
+		});
+			
+		// Get key
+		const keyPromise = new Promise((resolve, reject) => {
+			fs.readFile(this.PRIVATEKEY, { encoding:'utf8' }, (err, data) => err ? reject(err) : resolve(data));
+		});
 
 		// Sign TRA
-		Sign({
-			content: tra,
-			key: this.PRIVATEKEY,
-			cert: this.CERT,
-			openssl : this.options.openssl
+		Promise.all([certPromise, keyPromise]).then(([cert, key]) => {
+			const p7 = forge.pkcs7.createSignedData();
+			p7.content = forge.util.createBuffer(tra, "utf8");
+			p7.addCertificate(cert);
+			p7.addSigner({
+				authenticatedAttributes: [{
+					type: forge.pki.oids.contentType,
+					value: forge.pki.oids.data,
+				}, 
+				{
+					type: forge.pki.oids.messageDigest
+				}, 
+				{
+					type: forge.pki.oids.signingTime, 
+					value: new Date()
+				}],
+				certificate: cert,
+				digestAlgorithm: forge.pki.oids.sha256,
+				key: key,
+			});
+			
+			p7.sign();
+
+			const bytes = forge.asn1.toDer(p7.toAsn1()).getBytes();
+			
+			return Buffer.from(bytes, "binary").toString("base64");
 		})
 		.then((result)=> {
-			var soap = require('soap'),
-				args = {in0: result},
+			var args = {in0: result},
 				options = {disableCache:true, returnFault:true};
 
 			// Create SOAP client
@@ -237,7 +267,6 @@ Afip.prototype.CreateServiceTA = function(service)
 							resolve(true)
 						});
 					});
-
 				});
 			});
 

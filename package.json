@@ -3,8 +3,7 @@
   "version": "0.6.0",
   "description": "Libreria para usar los Web Services de AFIP con JavaScript",
   "main": "src/Afip.js",
-  "scripts": {
-  },
+  "scripts": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/AfipSDK/afip.js"
@@ -22,6 +21,7 @@
   },
   "homepage": "https://github.com/AfipSDK/afip.js#readme",
   "dependencies": {
+    "node-forge": "^0.8.5",
     "soap": "^0.24.0",
     "xml2js": "^0.4.19"
   }

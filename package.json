@@ -23,6 +23,6 @@
   "dependencies": {
     "node-forge": "^0.8.5",
     "soap": "^0.24.0",
-    "xml2js": "^0.4.19"
+    "xml2js": "^0.4.22"
   }
 }

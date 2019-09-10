@@ -230,7 +230,7 @@ Afip.prototype.CreateServiceTA = async function(service) {
 	const signedTRA = Buffer.from(bytes, "binary").toString("base64");
 
 	// SOAP Client options
-	const soapClientOptions = { disableCache:true, returnFault:true };
+	const soapClientOptions = { disableCache:true };
 
 	// Create SOAP client
 	const soapClient = await soap.createClientAsync(this.WSAA_WSDL, soapClientOptions);

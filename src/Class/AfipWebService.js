@@ -1,119 +1,97 @@
+const soap = require('soap');
+const path = require('path');
+const xml2js = require('xml2js');
+
+// XML parser
+const xmlParser = new xml2js.Parser({
+	normalizeTags: true,
+	normalize: true,
+	explicitArray: false,
+	tagNameProcessors: [(key) => { return key.replace('soapenv:', ''); }]
+});
+
 /**
  * Base class for AFIP web services 
- *
- * @since 0.5
- *
- * @package Afip
- * @author 	Ivan Muñoz
  **/ 
+module.exports = class AfipWebService {
+	constructor(webServiceOptions){
+		if (!webServiceOptions) {
+			throw new Error('Missing Web Service Object');
+		}
+		
+		/**
+		 * Force to use SOAP Client version 1.2
+		 *
+		 * @var boolean
+		 **/
+		this.soapv12 = webServiceOptions.soapV12 || false;
 
-const soap = require('soap'),
-	  parseString = require('xml2js').parseString;
+		/**
+		 * File name for the Web Services Description Language
+		 *
+		 * @var string
+		 **/
+		this.WSDL = webServiceOptions.WSDL;
+		
+		/**
+		 * The url to web service
+		 *
+		 * @var string
+		 **/
+		this.URL = webServiceOptions.URL;
 
-module.exports = AfipWebService;
+		/**
+		 * File name for the Web Services Description 
+		 * Language in test mode
+		 *
+		 * @var string
+		 **/
+		this.WSDL_TEST = webServiceOptions.WSDL_TEST;
 
-function AfipWebService(ws){
-	if (!ws) {throw new Error('Missing Web Service Object');}
-	/**
-	 * Force to use SOAP Client version 1.2
-	 *
-	 * @var boolean
-	 **/
-	this.force_soap_v1_2 = ws.force_soap_v1_2;
-
-	/**
-	 * File name for the Web Services Description Language
-	 *
-	 * @var string
-	 **/
-	this.WSDL = ws.WSDL;
-	
-	/**
-	 * The url to web service
-	 *
-	 * @var string
-	 **/
-	this.URL = ws.URL;
-
-	/**
-	 * File name for the Web Services Description 
-	 * Language in test mode
-	 *
-	 * @var string
-	 **/
-	this.WSDL_TEST = ws.WSDL_TEST;
-
-	
-	/**
-	 * The url to web service in test mode
-	 *
-	 * @var string
-	 **/
-	this.URL_TEST = ws.URL_TEST;
-	
-	/**
-	 * The Afip parent Class
-	 *
-	 * @var Afip
-	 **/
-	this.afip = ws.afip;
-	
-
-	if (this.afip.options['production'] === true) {
-		this.WSDL = this.afip.RES_FOLDER+this.WSDL;
-	}
-	else{
-		this.WSDL 	= this.afip.RES_FOLDER+this.WSDL_TEST;
-		this.URL 	= this.URL_TEST;
-	}
-
-	fs.access(this.WSDL, fs.constants.F_OK, (err) => {
-		if (err) {throw new Error("Failed to open file "+this.WSDL);}
-	});
-}
-
-/**
- * Sends request to AFIP servers
- * 
- * @since 1.0
- *
- * @param string 	operation 	SOAP operation to do 
- * @param array 	params 	Parameters to send
- *
- * @return promise 
- **/
-AfipWebService.prototype.ExecuteRequest = function(operation, params) {
-
-	return new Promise((resolve,reject)=>{
-	
-		if (this.soap_client) {
-			executute_operation();
+		/**
+		 * The url to web service in test mode
+		 *
+		 * @var string
+		 **/
+		this.URL_TEST = webServiceOptions.URL_TEST;
+		
+		/**
+		 * The Afip parent Class
+		 *
+		 * @var Afip
+		 **/
+		this.afip = webServiceOptions.afip;
+		
+		if (this.afip.options['production']) {
+			this.WSDL = path.resolve(this.afip.RES_FOLDER, this.WSDL);
 		}
 		else{
-			var options = { disableCache:true, returnFault:true };
-			soap.createClient(this.WSDL, options,(err, client)=> {
-				if (err) {reject(err);return;}
-				this.soap_client = client;
-				executute_operation();
-			});
+			this.WSDL = path.resolve(this.afip.RES_FOLDER, this.WSDL_TEST);
+			this.URL = this.URL_TEST;
+		}
+	}
+
+	/**
+	 * Send request to AFIP servers
+	 * 
+	 * @param operation SOAP operation to execute 
+	 * @param params Parameters to send
+	 **/
+	async executeRequest(operation, params) {
+		// Create SOAP client
+		if (!this.soapClient) {
+			let soapClientOptions = { 
+				disableCache: true, 
+				forceSoap12Headers: this.soapv12
+			};
+
+			this.soapClient = await soap.createClientAsync(this.WSDL, soapClientOptions);
 		}
 
-		function executute_operation() {
-			this.soap_client[operation](params, (err, res)=>{
-				if (err){reject(err.message);}
-				else{
-					parseString(result.loginCmsReturn, {
-						normalizeTags: true,
-						normalize: true,
-						explicitArray: false,
-						tagNameProcessors: [(key) => { return key.replace('soapenv:', ''); }]
-					}, (err, res) => {
-						if (err) {reject(err);return;}
-						resolve(res)
-					});
-				}
-			})
-		}
+		// Call to SOAP method
+		let result = await this.soapClient[operation+'Async'](params);
 
-	});
+		//Return response parsed as JSON
+		return await xmlParser.parseStringPromise(result);
+	}
 }

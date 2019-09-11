@@ -18,7 +18,7 @@ var xmlParser = new xml2js.Parser({
 //const RegisterScopeFour = require('./Class/RegisterScopeFour');
 const RegisterScopeFive = require('./Class/RegisterScopeFive');
 //const RegisterScopeTen = require('./Class/RegisterScopeTen');
-//const RegisterScopeThirteen = require('./Class/RegisterScopeThirteen');
+const RegisterScopeThirteen = require('./Class/RegisterScopeThirteen');
 
 /**
  * Software Development Kit for AFIP web services
@@ -120,7 +120,7 @@ function Afip(options = {}){
 	//this.RegisterScopeFour 		= new RegisterScopeFour(this);
 	this.RegisterScopeFive 		= new RegisterScopeFive(this);
 	//this.RegisterScopeTen 		= new RegisterScopeTen(this);
-	//this.RegisterScopeThirteen 	= new RegisterScopeThirteen(this);
+	this.RegisterScopeThirteen 	= new RegisterScopeThirteen(this);
 }
 
 /**

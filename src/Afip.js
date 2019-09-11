@@ -102,6 +102,7 @@ function Afip(options = {}){
 
 	this.options = options;
 
+	this.CUIT 		= options['CUIT'];
 	this.RES_FOLDER = options['res_folder'];
 	this.TA_FOLDER 	= options['ta_folder'];
 	this.CERT 		= path.resolve(this.RES_FOLDER, options['cert']);

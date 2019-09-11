@@ -239,7 +239,7 @@ Afip.prototype.CreateServiceTA = async function(service) {
 	const loginArguments = { in0: signedTRA };
 	
 	// Call loginCms SOAP method
-	const loginCmsResult = await soapClient.loginCmsAsync(loginArguments)
+	const [ loginCmsResult ] = await soapClient.loginCmsAsync(loginArguments)
 
 	// Parse loginCmsReturn to JSON 
 	const res = await xmlParser.parseStringPromise(loginCmsResult.loginCmsReturn); 

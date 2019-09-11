@@ -1,14 +1,5 @@
 const soap = require('soap');
 const path = require('path');
-const xml2js = require('xml2js');
-
-// XML parser
-const xmlParser = new xml2js.Parser({
-	normalizeTags: true,
-	normalize: true,
-	explicitArray: false,
-	tagNameProcessors: [(key) => { return key.replace('soapenv:', ''); }]
-});
 
 /**
  * Base class for AFIP web services 
@@ -77,7 +68,7 @@ module.exports = class AfipWebService {
 	 * @param operation SOAP operation to execute 
 	 * @param params Parameters to send
 	 **/
-	async executeRequest(operation, params) {
+	async executeRequest(operation, params = {}) {
 		// Create SOAP client
 		if (!this.soapClient) {
 			let soapClientOptions = { 
@@ -89,9 +80,9 @@ module.exports = class AfipWebService {
 		}
 
 		// Call to SOAP method
-		let result = await this.soapClient[operation+'Async'](params);
-
+		let [ result ] = await this.soapClient[operation+'Async'](params);
+		
 		//Return response parsed as JSON
-		return await xmlParser.parseStringPromise(result);
+		return result;
 	}
 }

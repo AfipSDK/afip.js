@@ -118,12 +118,12 @@ module.exports = class ElectronicBilling extends AfipWebService {
 	async createNextVoucher(data) {
 		const lastVoucher = await this.getLastVoucher(data['PtoVta'], data['CbteTipo']);
 		
-		voucherNumber = lastVoucher + 1;
+		const voucherNumber = lastVoucher + 1;
 
 		data['CbteDesde'] = voucherNumber;
 		data['CbteHasta'] = voucherNumber;
 
-		res 					= await this.createVoucher(data);
+		let res 				= await this.createVoucher(data);
 		res['voucherNumber'] 	= voucherNumber;
 
 		return res;

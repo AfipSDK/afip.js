@@ -91,6 +91,10 @@ module.exports = class ElectronicBilling extends AfipWebService {
 			return results;
 		}
 		else{
+			if (Array.isArray(results.FeDetResp.FECAEDetResponse)) {
+				results.FeDetResp.FECAEDetResponse = results.FeDetResp.FECAEDetResponse[0];
+			}
+
 			return {
 				'CAE' 		: results.FeDetResp.FECAEDetResponse.CAE,
 				'CAEFchVto' : this.formatDate(results.FeDetResp.FECAEDetResponse.CAEFchVto),
@@ -242,7 +246,7 @@ module.exports = class ElectronicBilling extends AfipWebService {
 	 *
 	 * @return string date in format yyyy-mm-dd
 	 **/
-	async formatDate(date) {
+	formatDate(date) {
 		return date.toString()
 		.replace(/(\d{4})(\d{2})(\d{2})/, (string, year, month, day) => `${year}-${month}-${day}`);
 	}

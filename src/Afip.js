@@ -98,7 +98,7 @@ function Afip(options = {}){
 	if (!options.hasOwnProperty('key')) {options['key'] = 'key';}
 	if (!options.hasOwnProperty('res_folder')) {options['res_folder'] = __dirname+'/Afip_res/';}
 	if (!options.hasOwnProperty('ta_folder')) {options['ta_folder'] = __dirname+'/Afip_res/';}
-	if (!options['production'] !== true) {options['production'] = false;}
+	if (options['production'] !== true) {options['production'] = false;}
 
 	this.options = options;
 
@@ -231,7 +231,7 @@ Afip.prototype.CreateServiceTA = async function(service) {
 	const signedTRA = Buffer.from(bytes, "binary").toString("base64");
 
 	// SOAP Client options
-	const soapClientOptions = { disableCache:true };
+	const soapClientOptions = { disableCache:true, endpoint: this.WSAA_URL };
 
 	// Create SOAP client
 	const soapClient = await soap.createClientAsync(this.WSAA_WSDL, soapClientOptions);

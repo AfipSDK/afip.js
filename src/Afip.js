@@ -156,10 +156,11 @@ Afip.prototype.GetServiceTA = async function(service, firstTry = true) {
 				sign : taData.credentials.sign
 			}
 		}
-		// Throw error if this is not the first try to get token authorization
-		else if (firstTry === false){
-			throw new Error('Error getting Token Autorization');
-		}
+	}
+	
+	// Throw error if this is not the first try to get token authorization
+	if (firstTry === false){
+		throw new Error('Error getting Token Autorization');
 	}
 
 	// Create token authorization file

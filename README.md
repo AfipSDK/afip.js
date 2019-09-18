@@ -16,9 +16,6 @@
     <a href="https://github.com/afipsdk/afip.js/issues">Reportar un bug</a>
   </p>
 </p>
-<p align="center">
-    <img src="https://github.com/afipsdk/afipsdk.github.io/blob/master/images/implementation.png" alt="Implementation">
-</p>
 
 <!-- TABLE OF CONTENTS -->
 ## Tabla de contenidos
@@ -33,7 +30,6 @@
   * [Padrón alcance 5](#padr%C3%B3n-alcance-5)
   * [Padrón alcance 10](#padr%C3%B3n-alcance-10)
   * [Padrón alcance 13](#padr%C3%B3n-alcance-13)
-* [Migración](#migraci%C3%B3n)
 * [Proyectos relacionados](#proyectos-relacionados)
 * [Contribuir](#contribuir)
 * [Licencia](#licencia)

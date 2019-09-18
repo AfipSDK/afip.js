@@ -246,12 +246,15 @@ Afip.prototype.CreateServiceTA = async function(service) {
 	// Parse loginCmsReturn to JSON 
 	const res = await xmlParser.parseStringPromise(loginCmsResult.loginCmsReturn); 
 
-	// Token authorization file name
-	const taFileName = `TA-${this.options['CUIT']}-${service}${this.options['production'] ? '-production' : ''}.json`;
-
+	// Declare token authorization file path
+	const taFilePath = path.resolve(
+		this.TA_FOLDER,
+		`TA-${this.options['CUIT']}-${service}${this.options['production'] ? '-production' : ''}.json`
+	);
+	
 	// Save Token authorization data to json file
 	await (new Promise((resolve, reject) => {
-		fs.writeFile(taFileName, JSON.stringify(res.loginticketresponse), (err) => {
+		fs.writeFile(taFilePath, JSON.stringify(res.loginticketresponse), (err) => {
 			if (err) {reject(err);return;}
 			resolve();
 		});

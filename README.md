@@ -50,13 +50,13 @@ Esta librería fue creada con la intención de ayudar a los programadores a usar
 #### Via npm
 
 ```
-npm install --save afip.js
+npm install --save @afipsdk/afip.js
 ```
 
 #### Via Yarn
 
 ```
-yarn add afip.js
+yarn add @afipsdk/afip.js
 ```
 
 **Siguiente paso** 
@@ -69,7 +69,7 @@ Ir a http://www.afip.gob.ar/ws/documentacion/certificados.asp para obtener mas i
 
 Lo primero es incluir el SDK en tu aplicación
 ````js
-const Afip = require('afip.js');
+const Afip = require('@afipsdk/afip.js');
 ````
 
 Luego creamos una instancia de la clase Afip pasandole un Objeto como parámetro.

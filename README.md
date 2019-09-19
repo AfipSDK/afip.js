@@ -21,15 +21,15 @@
 ## Tabla de contenidos
 
 * [Acerca del proyecto](#acerca-del-proyecto)
-* [Guía de inicio](#guía-de-inicio)
-  * [Instalación](#instalaci%C3%B3n)
+* [Guia de inicio](#guia-de-inicio)
+  * [Instalacion](#instalacion)
   * [Como usarlo](#como-usarlo)
 * [Web Services](#web-services)
-  * [Factura electrónica](#factura-electr%C3%B3nica)
-  * [Padrón alcance 4](#padr%C3%B3n-alcance-4)
-  * [Padrón alcance 5](#padr%C3%B3n-alcance-5)
-  * [Padrón alcance 10](#padr%C3%B3n-alcance-10)
-  * [Padrón alcance 13](#padr%C3%B3n-alcance-13)
+  * [Factura electronica](#factura-electronica)
+  * [Padron alcance 4](#padron-alcance-4)
+  * [Padron alcance 5](#padron-alcance-5)
+  * [Padron alcance 10](#padron-alcance-10)
+  * [Padron alcance 13](#padron-alcance-13)
 * [Proyectos relacionados](#proyectos-relacionados)
 * [Contribuir](#contribuir)
 * [Licencia](#licencia)
@@ -44,9 +44,9 @@ Esta librería fue creada con la intención de ayudar a los programadores a usar
 
 
 <!-- START GUIDE -->
-## Guía de inicio
+## Guia de inicio
 
-### Instalación
+### Instalacion
 #### Via npm
 
 ```
@@ -90,19 +90,19 @@ Si necesitas más información de cómo utilizar algún web service echa un vist
 
 **Además si necesitas usar otro web service que aún no está disponible aquí podes utilizar esta librería como base para que se te haga más fácil, pronto haremos un tutorial explicando paso a paso como hacerlo, pero por el momento te recomendamos comenzar haciendo una copia y modificando el código de [consulta al padrón alcance 5](https://github.com/afipsdk/afip.js/blob/master/src/Class/RegisterScopeFive.js)**
 
-### Factura electrónica
+### Factura electronica
 Podes encontrar la documentación necesaria para utilizar la [facturación electrónica](https://github.com/afipsdk/afip.js/wiki/Facturaci%C3%B3n-Electr%C3%B3nica) 👈 aquí
 
-### Padrón alcance 4
+### Padron alcance 4
 El Servicio Web de Consulta de Padrón denominado A4 ha quedado limitado para Organismos Públicos, si lo necesitas puedes leer la documentación de [consulta al padrón de AFIP alcance 4](https://github.com/afipsdk/afip.js/wiki/Consulta-al-padron-de-AFIP-alcance-4)
 
-### Padrón alcance 5
+### Padron alcance 5
 Quienes usaban el padrón A4 pueden utilizar este padrón en modo de remplazo, si queres saber cómo echa un vistazo a la documentación de [consulta al padrón de AFIP alcance 5](https://github.com/afipsdk/afip.js/wiki/Consulta-al-padron-de-AFIP-alcance-5)
 
-### Padrón alcance 10
+### Padron alcance 10
 Si tenes que utilizar este web service también está disponible dentro de la librería, su documentación se encuentra en [consulta al padrón de AFIP alcance 10](https://github.com/afipsdk/afip.js/wiki/Consulta-al-padron-de-AFIP-alcance-10)
 
-### Padrón alcance 13
+### Padron alcance 13
 Si debes consultar por el CUIT de una persona física tendrás que utilizar este web service, su documentación se encuentra disponible en la wiki de [consulta al padrón de AFIP alcance 13](https://github.com/afipsdk/afip.js/wiki/Consulta-al-padron-de-AFIP-alcance-13)
 
 <!-- RELATED PROJECTS-->

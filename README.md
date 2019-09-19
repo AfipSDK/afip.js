@@ -31,7 +31,6 @@
   * [Padron alcance 10](#padron-alcance-10)
   * [Padron alcance 13](#padron-alcance-13)
 * [Proyectos relacionados](#proyectos-relacionados)
-* [Contribuir](#contribuir)
 * [Licencia](#licencia)
 * [Contacto](#contacto)
 

@@ -2,7 +2,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/afipsdk/afip.js">
-    <img src="https://github.com/afipsdk/afipsdk.github.io/blob/master/images/logo-colored.png" alt="Logo" width="130" height="130">
+    <img src="https://github.com/afipsdk/afipsdk.github.io/blob/master/images/logo-colored.png" alt="Afip.js" width="130" height="130">
   </a>
 
   <h3 align="center">Afip.js</h3>

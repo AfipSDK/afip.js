@@ -65,13 +65,6 @@ function Afip(options = {}){
 	this.PRIVATEKEY;
 
 	/**
-	 * The passphrase (if any) to sign
-	 *
-	 * @var string
-	 **/
-	this.PASSPHRASE;
-
-	/**
 	 * Afip resources folder
 	 *
 	 * @var string
@@ -93,7 +86,6 @@ function Afip(options = {}){
 	
 	// Define default options
 	if (!options.hasOwnProperty('production')) {options['production'] = false;}
-	if (!options.hasOwnProperty('passphrase')) {options['passphrase'] = 'xxxxx';}
 	if (!options.hasOwnProperty('cert')) {options['cert'] = 'cert';}
 	if (!options.hasOwnProperty('key')) {options['key'] = 'key';}
 	if (!options.hasOwnProperty('res_folder')) {options['res_folder'] = __dirname+'/Afip_res/';}

@@ -54,10 +54,10 @@ module.exports = class AfipWebService {
 		this.afip = webServiceOptions.afip;
 		
 		if (this.afip.options['production']) {
-			this.WSDL = path.resolve(this.afip.RES_FOLDER, this.WSDL);
+			this.WSDL = path.resolve(__dirname, '../Afip_res', this.WSDL);
 		}
 		else{
-			this.WSDL = path.resolve(this.afip.RES_FOLDER, this.WSDL_TEST);
+			this.WSDL = path.resolve(__dirname, '../Afip_res', this.WSDL_TEST);
 			this.URL = this.URL_TEST;
 		}
 	}

@@ -52,6 +52,7 @@ module.exports = class RegisterScopeTen extends AfipWebService {
 		};
 		
 		return this.executeRequest('getPersona', params)
+		.then(res => res.persona)
 		.catch(err => { if (err.message.indexOf('No existe') !== -1) { return null } else { throw err }});
 	}
 

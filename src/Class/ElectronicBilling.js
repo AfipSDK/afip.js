@@ -81,6 +81,9 @@ module.exports = class ElectronicBilling extends AfipWebService {
 
 		if (data['Iva']) 
 			data['Iva'] = { 'AlicIva' : data['Iva'] };
+		
+		if (data['CbtesAsoc']) 
+			data['CbtesAsoc'] = { 'CbteAsoc' : data['CbtesAsoc'] };
 
 		if (data['Opcionales']) 
 			data['Opcionales'] = { 'Opcional' : data['Opcionales'] };

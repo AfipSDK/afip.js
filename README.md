@@ -1,3 +1,9 @@
+<!-- PROJECT SHIELDS -->
+[![NPM][npm-shield]](https://www.npmjs.com/package/@afipsdk/afip.js)
+[![Contributors][contributors-shield]](https://github.com/afipsdk/afip.js/graphs/contributors)
+[![Closed issues][issues-shield]](https://github.com/afipsdk/afip.js/issues)
+[![License][license-shield]](https://github.com/afipsdk/afip.js/blob/master/LICENSE)
+
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
@@ -123,3 +129,10 @@ Link del proyecto: [https://github.com/afipsdk/afip.js](https://github.com/afips
 
 
 _Este software y sus desarrolladores no tienen ninguna relación con la AFIP._
+
+
+<!-- MARKDOWN LINKS & IMAGES -->
+[npm-shield]: https://img.shields.io/npm/dw/@afipsdk/afip.js.svg
+[contributors-shield]: https://img.shields.io/github/contributors/afipsdk/afip.js.svg?color=orange
+[issues-shield]: https://img.shields.io/github/issues-closed-raw/afipsdk/afip.js.svg?color=blueviolet
+[license-shield]: https://img.shields.io/github/license/afipsdk/afip.js.svg?color=blue

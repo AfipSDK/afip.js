@@ -37,7 +37,7 @@
   * [Padron alcance 10](#padron-alcance-10)
   * [Padron alcance 13](#padron-alcance-13)
 * [Proyectos relacionados](#proyectos-relacionados)
-* [Afip SDK PRO 🚀](#afip-sdk-pro-)
+* [¿Necesitas ayuda? 🚀](#afip-sdk-pro-)
 * [Licencia](#licencia)
 * [Contacto](#contacto)
 
@@ -119,7 +119,7 @@ Si debes consultar por el CUIT de una persona física tendrás que utilizar este
 Si necesitas acceder los web services de AFIP en **PHP** podes utilizar [Afip.php](https://github.com/afipsdk/afip.php)
 
 <!-- AFIP SDK PRO -->
-### Afip SDK PRO 🚀
+### ¿Necesitas ayuda? 🚀
 
 ¿Quieres implementarlo de forma rápida y fiable? Obtén Afip SDK PRO que incluye soporte y ayuda personalizada por 6 meses donde te ayudaremos integrar los web services de Afip con tu aplicación, y una amplia documentación con ejemplos, tutoriales, implementación en Frameworks y plataformas, y mucho más.
 

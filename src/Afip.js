@@ -15,6 +15,7 @@ var xmlParser = new xml2js.Parser({
 
 // Available Web Services
 const ElectronicBilling = require('./Class/ElectronicBilling');
+const ElectronicCreditBilling = require('./Class/ElectronicCreditBilling');
 const RegisterScopeFour = require('./Class/RegisterScopeFour');
 const RegisterScopeFive = require('./Class/RegisterScopeFive');
 const RegisterScopeTen = require('./Class/RegisterScopeTen');
@@ -108,7 +109,8 @@ function Afip(options = {}){
 		this.WSAA_URL = 'https://wsaahomo.afip.gov.ar/ws/services/LoginCms';
 	}
 
-	this.ElectronicBilling 		= new ElectronicBilling(this);
+	this.ElectronicBilling = new ElectronicBilling(this);
+	this.ElectronicCreditBilling = new ElectronicCreditBilling(this);
 	this.RegisterScopeFour 		= new RegisterScopeFour(this);
 	this.RegisterScopeFive 		= new RegisterScopeFive(this);
 	this.RegisterScopeTen 		= new RegisterScopeTen(this);

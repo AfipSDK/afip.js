@@ -22,13 +22,13 @@ const RegisterScopeThirteen = require('./Class/RegisterScopeThirteen');
 
 /**
  * Software Development Kit for AFIP web services
- * 
- * This release of Afip SDK is intended to facilitate 
- * the integration to other different web services that 
- * Electronic Billing   
- * 
+ *
+ * This release of Afip SDK is intended to facilitate
+ * the integration to other different web services that
+ * Electronic Billing
+ *
  * @link http://www.afip.gob.ar/ws/ AFIP Web Services documentation
- * 
+ *
  * @author 	Afip SDK afipsdk@gmail.com
  * @package Afip
  * @version 0.6
@@ -83,13 +83,20 @@ function Afip(options = {}){
 
 
 	if (!options.hasOwnProperty('CUIT')) {throw new Error("CUIT field is required in options array");}
-	
+
 	// Define default options
 	if (!options.hasOwnProperty('production')) {options['production'] = false;}
 	if (!options.hasOwnProperty('cert')) {options['cert'] = 'cert';}
 	if (!options.hasOwnProperty('key')) {options['key'] = 'key';}
-	if (!options.hasOwnProperty('res_folder')) {options['res_folder'] = __dirname+'/Afip_res/';}
-	if (!options.hasOwnProperty('ta_folder')) {options['ta_folder'] = __dirname+'/Afip_res/';}
+
+	if (!options.hasOwnProperty('res_folder')) {
+		throw new Error('The `res_folder` parameter is required.');
+	}
+
+	if (!options.hasOwnProperty('ta_folder')) {
+		throw new Error('The `ta_folder` parameter is required.');
+	}
+
 	if (options['production'] !== true) {options['production'] = false;}
 
 	this.options = options;
@@ -130,7 +137,7 @@ Afip.prototype.GetServiceTA = async function(service, firstTry = true) {
 	// Check if token authorization file exists
 	const taFileAccessError = await new Promise((resolve) => {
 		fs.access(taFilePath, fs.constants.F_OK, resolve);
-	}); 
+	});
 
 	// If have access to token authorization file
 	if (!taFileAccessError) {
@@ -149,7 +156,7 @@ Afip.prototype.GetServiceTA = async function(service, firstTry = true) {
 			}
 		}
 	}
-	
+
 	// Throw error if this is not the first try to get token authorization
 	if (firstTry === false){
 		throw new Error('Error getting Token Autorization');
@@ -167,14 +174,14 @@ Afip.prototype.GetServiceTA = async function(service, firstTry = true) {
 /**
  * Create an TA from WSAA
  *
- * Request to WSAA for a tokent authorization for service 
+ * Request to WSAA for a tokent authorization for service
  * and save this in a json file
  *
  * @param service Service for token authorization
  **/
 Afip.prototype.CreateServiceTA = async function(service) {
 	const date = new Date();
-	
+
 	// Tokent request authorization XML
 	const tra = (`<?xml version="1.0" encoding="UTF-8" ?>
 	<loginTicketRequest version="1.0">
@@ -190,7 +197,7 @@ Afip.prototype.CreateServiceTA = async function(service) {
 	const certPromise = new Promise((resolve, reject) => {
 		fs.readFile(this.CERT, { encoding:'utf8' }, (err, data) => err ? reject(err) : resolve(data));
 	});
-		
+
 	// Get key file content
 	const keyPromise = new Promise((resolve, reject) => {
 		fs.readFile(this.PRIVATEKEY, { encoding:'utf8' }, (err, data) => err ? reject(err) : resolve(data));
@@ -207,12 +214,12 @@ Afip.prototype.CreateServiceTA = async function(service) {
 		authenticatedAttributes: [{
 			type: forge.pki.oids.contentType,
 			value: forge.pki.oids.data,
-		}, 
+		},
 		{
 			type: forge.pki.oids.messageDigest
-		}, 
+		},
 		{
-			type: forge.pki.oids.signingTime, 
+			type: forge.pki.oids.signingTime,
 			value: new Date()
 		}],
 		certificate: cert,
@@ -229,21 +236,21 @@ Afip.prototype.CreateServiceTA = async function(service) {
 	// Create SOAP client
 	const soapClient = await soap.createClientAsync(this.WSAA_WSDL, soapClientOptions);
 
-	// Arguments for soap client request 
+	// Arguments for soap client request
 	const loginArguments = { in0: signedTRA };
-	
+
 	// Call loginCms SOAP method
 	const [ loginCmsResult ] = await soapClient.loginCmsAsync(loginArguments)
 
-	// Parse loginCmsReturn to JSON 
-	const res = await xmlParser.parseStringPromise(loginCmsResult.loginCmsReturn); 
+	// Parse loginCmsReturn to JSON
+	const res = await xmlParser.parseStringPromise(loginCmsResult.loginCmsReturn);
 
 	// Declare token authorization file path
 	const taFilePath = path.resolve(
 		this.TA_FOLDER,
 		`TA-${this.options['CUIT']}-${service}${this.options['production'] ? '-production' : ''}.json`
 	);
-	
+
 	// Save Token authorization data to json file
 	await (new Promise((resolve, reject) => {
 		fs.writeFile(taFilePath, JSON.stringify(res.loginticketresponse), (err) => {

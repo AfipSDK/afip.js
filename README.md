@@ -53,7 +53,8 @@ Esta librería fue creada con la intención de ayudar a los programadores a usar
 <!-- START GUIDE -->
 ## Guia de inicio
 
-### Instalacion
+### Instalación
+
 #### Via npm
 
 ```
@@ -66,24 +67,26 @@ npm install --save @afipsdk/afip.js
 yarn add @afipsdk/afip.js
 ```
 
-**Siguiente paso** 
-* Remplazar *node_modules/@afipsdk/afip.js/Afip_res/cert* por tu certificado provisto por AFIP y *node_modules/@afipsdk/afip.js/Afip_res/key* por la clave generada. 
-* La carpeta *Afip_res* deberá tener permisos de escritura.
+### Clave y Certificado
 
-Ir a http://www.afip.gob.ar/ws/documentacion/certificados.asp para obtener mas información de como generar la clave y certificado
+Ir a http://www.afip.gob.ar/ws/documentacion/certificados.asp para obtener mas información de como generar la clave y certificado.
 
 # Como usarlo
 
 Lo primero es incluir el SDK en tu aplicación
+
 ````js
 const Afip = require('@afipsdk/afip.js');
 ````
 
 Luego creamos una instancia de la clase Afip pasandole un Objeto como parámetro.
 ````js
-const afip = new Afip({ CUIT: 20111111112 });
+const afip = new Afip({
+  CUIT: 20111111112,
+  res_folder: './res_folder',
+  ta_folder: './ta_folder'
+});
 ````
-
 
 Para más información acerca de los parámetros que se le puede pasar a la instancia new `Afip()` consulte sección [Primeros pasos](https://github.com/afipsdk/afip.js/wiki/Primeros-pasos#como-usarlo) de la documentación
 

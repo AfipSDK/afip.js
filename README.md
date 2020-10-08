@@ -37,7 +37,7 @@
   * [Padron alcance 10](#padron-alcance-10)
   * [Padron alcance 13](#padron-alcance-13)
 * [Proyectos relacionados](#proyectos-relacionados)
-* [Afip SDK PRO 🚀](#afip-sdk-pro-)
+* [¿Necesitas ayuda? 🚀](#necesitas-ayuda-)
 * [Licencia](#licencia)
 * [Contacto](#contacto)
 
@@ -45,6 +45,7 @@
 
 <!-- ABOUT THE PROJECT -->
 ## Acerca del proyecto
+Afip SDK es la forma más rápida y simple de conectarse con los Web Services de AFIP.
 
 Esta librería fue creada con la intención de ayudar a los programadores a usar los Web Services de AFIP sin romperse la cabeza ni perder tiempo tratando de entender la complicada documentación que AFIP provee. Ademas forma parte de [Afip SDK](https://afipsdk.com/).
 
@@ -118,9 +119,9 @@ Si debes consultar por el CUIT de una persona física tendrás que utilizar este
 Si necesitas acceder los web services de AFIP en **PHP** podes utilizar [Afip.php](https://github.com/afipsdk/afip.php)
 
 <!-- AFIP SDK PRO -->
-### Afip SDK PRO 🚀
+### ¿Necesitas ayuda? 🚀
 
-¿Necesitas ayuda? Obtén Afip SDK PRO que incluye soporte y ayuda personalizada por 6 meses donde te ayudaremos integrar los web services de Afip con tu aplicación, y una amplia documentación con ejemplos, tutoriales, implementación en Frameworks y plataformas, y mucho más. 
+¿Quieres implementarlo de forma rápida y fiable? Obtén Afip SDK PRO que incluye soporte y ayuda personalizada por 6 meses donde te ayudaremos integrar los web services de Afip con tu aplicación, y una amplia documentación con ejemplos, tutoriales, implementación en Frameworks y plataformas, y mucho más.
 
 
 **[Saber más](https://afipsdk.com/pro.html)**

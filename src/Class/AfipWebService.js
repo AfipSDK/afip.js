@@ -77,6 +77,8 @@ module.exports = class AfipWebService {
 			};
 
 			this.soapClient = await soap.createClientAsync(this.WSDL, soapClientOptions);
+			/* Sobre escribir la URL del archivo .wsdl */
+			this.soapClient.setEndpoint(this.URL);
 		}
 
 		// Call to SOAP method

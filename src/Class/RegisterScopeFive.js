@@ -51,9 +51,31 @@ module.exports = class RegisterScopeFive extends AfipWebService {
 			idPersona: identifier
 		};
 		
-		return this.executeRequest('getPersona', params)
+		return this.executeRequest('getPersona_v2', params)
 		.then(res => res)
 		.catch(err => { if (err.message.indexOf('No existe') !== -1) { return null } else { throw err }});
+	}
+
+	/**
+	 * Asks to web service for taxpayers details
+	 *
+	 * @throws Exception if exists an error in response 
+	 *
+	 * @return [object] returns web service full response
+	 **/
+	async getTaxpayersDetails(identifiers) {
+		// Get token and sign
+		let { token, sign } = await this.afip.GetServiceTA('ws_sr_padron_a5');
+
+		// Prepare SOAP params
+		let params = {
+			token, sign,
+			cuitRepresentada: this.afip.CUIT,
+			idPersona: identifiers
+		};
+		
+		return this.executeRequest('getPersonaList_v2', params)
+		.then(res => res.persona);
 	}
 
 	/**
@@ -68,7 +90,10 @@ module.exports = class RegisterScopeFive extends AfipWebService {
 	{
 		let results = await super.executeRequest(operation, params);
 
-		return results[operation === 'getPersona' ? 'personaReturn' : 'return'];
+		return results[
+			operation === 'getPersona_v2' ? 'personaReturn' :
+				(operation === 'getPersonaList_v2' ? 'personaListReturn': 'return')
+			];
 	}
 }
 

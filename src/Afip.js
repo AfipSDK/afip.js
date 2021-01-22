@@ -108,11 +108,12 @@ function Afip(options = {}){
 		this.WSAA_URL = 'https://wsaahomo.afip.gov.ar/ws/services/LoginCms';
 	}
 
-	this.ElectronicBilling 		= new ElectronicBilling(this);
-	this.RegisterScopeFour 		= new RegisterScopeFour(this);
-	this.RegisterScopeFive 		= new RegisterScopeFive(this);
-	this.RegisterScopeTen 		= new RegisterScopeTen(this);
-	this.RegisterScopeThirteen 	= new RegisterScopeThirteen(this);
+	this.ElectronicBilling 			= new ElectronicBilling(this);
+	this.RegisterScopeFour 			= new RegisterScopeFour(this);
+	this.RegisterScopeFive 			= new RegisterScopeFive(this);
+	this.RegisterInscriptionProof 	= new RegisterScopeFive(this);
+	this.RegisterScopeTen 			= new RegisterScopeTen(this);
+	this.RegisterScopeThirteen 		= new RegisterScopeThirteen(this);
 }
 
 /**

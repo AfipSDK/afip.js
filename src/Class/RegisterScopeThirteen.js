@@ -37,7 +37,7 @@ module.exports = class RegisterScopeThirteen extends AfipWebService {
 	 * @throws Exception if exists an error in response 
 	 *
 	 * @return object|null if taxpayer does not exists, return null,  
-	 * if it exists, returns full response {@see 
+	 * if it exists, returns idPersona property of response {@see 
 	 * WS Specification item 3.2.2}
 	 **/
 	async getTaxpayerDetails(identifier) {
@@ -57,6 +57,30 @@ module.exports = class RegisterScopeThirteen extends AfipWebService {
 	}
 
 	/**
+	 * Asks to web service for tax id by document number
+	 *
+	 * @throws Exception if exists an error in response 
+	 *
+	 * @return object|null if taxpayer does not exists, return null,  
+	 * if it exists, returns idPersona property of response
+	 **/
+	async getTaxIDByDocument(documentNumber) {
+		// Get token and sign
+		let { token, sign } = await this.afip.GetServiceTA('ws_sr_padron_a13');
+
+		// Prepare SOAP params
+		let params = {
+			token, sign,
+			cuitRepresentada: this.afip.CUIT,
+			documento: documentNumber
+		};
+		
+		return this.executeRequest('getIdPersonaListByDocumento', params)
+		.then(res => res.idPersona)
+		.catch(err => { if (err.message.indexOf('No existe') !== -1) { return null } else { throw err }});
+	}
+
+	/**
 	 * Send request to AFIP servers
 	 * 
 	 * @param operation SOAP operation to execute 
@@ -68,7 +92,10 @@ module.exports = class RegisterScopeThirteen extends AfipWebService {
 	{
 		let results = await super.executeRequest(operation, params);
 
-		return results[operation === 'getPersona' ? 'personaReturn' : 'return'];
+		return results[
+			operation === 'getPersona' ? 'personaReturn' :
+				(operation === 'getIdPersonaListByDocumento' ? 'idPersonaListReturn': 'return')
+			];
 	}
 }
 

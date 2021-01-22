@@ -164,6 +164,16 @@ module.exports = class ElectronicBilling extends AfipWebService {
 	}
 
 	/**
+	 * Asks to AFIP Servers for sales points availables {@see WS 
+	 * Specification item 4.11}
+	 *
+	 * @return array All sales points availables
+	 **/
+	async getSalesPoints() {
+		return (await this.executeRequest('FEParamGetPtosVenta')).ResultGet.PtoVenta;
+	}
+
+	/**
 	 * Asks to AFIP Servers for voucher types availables {@see WS 
 	 * Specification item 4.4}
 	 *

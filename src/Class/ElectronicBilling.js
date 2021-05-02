@@ -58,7 +58,7 @@ module.exports = class ElectronicBilling extends AfipWebService {
 	 * 	for CAE (yyyy-mm-dd)] else returns complete response from 
 	 * 	AFIP {@see WS Specification item 4.1.3}
 	 **/
-	async createVoucher(data, returnResponse = false) {
+	async createVoucher(data, returnResponse = false,dataExtra = false) {
 		const req = {
 			'FeCAEReq' : {
 				'FeCabReq' : {
@@ -67,7 +67,8 @@ module.exports = class ElectronicBilling extends AfipWebService {
 					'CbteTipo' 	: data['CbteTipo']
 				},
 				'FeDetReq' : { 
-					'FECAEDetRequest' : data
+					'FECAEDetRequest' : data,
+					'dataExtra':dataExtra
 				}
 			}
 		};
@@ -92,22 +93,25 @@ module.exports = class ElectronicBilling extends AfipWebService {
 			data['Opcionales'] = { 'Opcional' : data['Opcionales'] };
 
 		const results = await this.executeRequest('FECAESolicitar', req);
-
-		if (returnResponse === true) {
-			return results;
-		}
-		else{
+	
+	  try{
 			if (Array.isArray(results.FeDetResp.FECAEDetResponse)) {
-				results.FeDetResp.FECAEDetResponse = results.FeDetResp.FECAEDetResponse[0];
+			results.FeDetResp.FECAEDetResponse = results.FeDetResp.FECAEDetResponse[0];
 			}
 
 			return {
 				'CAE' 		: results.FeDetResp.FECAEDetResponse.CAE,
 				'CAEFchVto' : this.formatDate(results.FeDetResp.FECAEDetResponse.CAEFchVto),
 			};
-		}
-	}
+		
+	  }catch(e){
+	  	return results.Errors
+	  }
+	
+		
 
+		
+	}
 	/**
 	 * Create next voucher from AFIP
 	 *
@@ -154,6 +158,14 @@ module.exports = class ElectronicBilling extends AfipWebService {
 				'CbteNro' 	: number,
 				'PtoVta' 	: salesPoint,
 				'CbteTipo' 	: type
+			},
+			'FeCAEReq' : {
+			
+				'FeDetReq' : { 
+					'FECAEDetRequest' : {},
+					'dataExtra':{}
+				}
+				
 			}
 		};
 
@@ -281,9 +293,14 @@ module.exports = class ElectronicBilling extends AfipWebService {
 
 		const results = await super.executeRequest(operation, params);
 
-		await this._checkErrors(operation, results);
+		let erroresEncontrados =  await this._checkErrors(operation, results,params);
 
-		return results[operation+'Result'];
+		if (Array.isArray(erroresEncontrados) && erroresEncontrados.length > 0 ) 
+		{
+			return erroresEncontrados;
+		}else{
+			return results[operation+'Result'];
+		}
 	}
 
 	/**
@@ -320,7 +337,7 @@ module.exports = class ElectronicBilling extends AfipWebService {
 	 * 
 	 * @return void 
 	 **/
-	async _checkErrors(operation, results)
+	async _checkErrors(operation, results,params)
 	{
 		const res = results[operation+'Result'];
 
@@ -337,7 +354,13 @@ module.exports = class ElectronicBilling extends AfipWebService {
 
 		if (res.Errors) {
 			const err = Array.isArray(res.Errors.Err) ? res.Errors.Err[0] : res.Errors.Err;
-			throw new Error(`(${err.Code}) ${err.Msg}`, err.Code);
+			var regex = new RegExp("\'", "g");
+
+			let objErr = {
+				'ErrorEncontrado': {'code':err.Code,'msg' :(err.Msg).replace(regex,''),'params':params.FeCAEReq.FeDetReq.FECAEDetRequest,'dataExtra':params.FeCAEReq.FeDetReq.dataExtra}
+			}
+			
+			throw objErr;
 		}
 	}
 

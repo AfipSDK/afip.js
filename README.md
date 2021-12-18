@@ -36,6 +36,7 @@
   * [Padron alcance 5](#padron-alcance-5)
   * [Padron alcance 10](#padron-alcance-10)
   * [Padron alcance 13](#padron-alcance-13)
+  * [Otro web service](#otro-web-service)
 * [Proyectos relacionados](#proyectos-relacionados)
 * [¿Necesitas ayuda? 🚀](#necesitas-ayuda-)
 * [Licencia](#licencia)
@@ -95,8 +96,6 @@ Una vez realizado esto podemos comenzar a usar el SDK con los Web Services dispo
 
 Si necesitas más información de cómo utilizar algún web service echa un vistazo a la [documentación completa de afip.js](https://github.com/afipsdk/afip.js/wiki)
 
-**Además si necesitas usar otro web service que aún no está disponible aquí podes utilizar esta librería como base para que se te haga más fácil, pronto haremos un tutorial explicando paso a paso como hacerlo, pero por el momento te recomendamos comenzar haciendo una copia y modificando el código de [consulta al padrón alcance 5](https://github.com/afipsdk/afip.js/blob/master/src/Class/RegisterScopeFive.js)**
-
 ### Factura electronica
 Podes encontrar la documentación necesaria para utilizar la [facturación electrónica](https://github.com/afipsdk/afip.js/wiki/Facturaci%C3%B3n-Electr%C3%B3nica) 👈 aquí
 
@@ -111,6 +110,13 @@ Si tenes que utilizar este web service también está disponible dentro de la li
 
 ### Padron alcance 13
 Si debes consultar por el CUIT de una persona física tendrás que utilizar este web service, su documentación se encuentra disponible en la wiki de [consulta al padrón de AFIP alcance 13](https://github.com/afipsdk/afip.js/wiki/Consulta-al-padron-de-AFIP-alcance-13)
+
+### Otro web service
+Si necesitas usar algún otro web service la versión PRO incluye un tutorial completo para integrar cualquier otro web service de AFIP
+
+
+**[Saber más](https://afipsdk.com/pro.html)**
+
 
 <!-- RELATED PROJECTS-->
 ### Proyectos relacionados

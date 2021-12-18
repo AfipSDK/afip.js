@@ -5,7 +5,7 @@ const path = require('path');
  * Base class for AFIP web services 
  **/ 
 module.exports = class AfipWebService {
-	constructor(webServiceOptions){
+	constructor(webServiceOptions, options = {}){
 		if (!webServiceOptions) {
 			throw new Error('Missing Web Service Object');
 		}
@@ -53,13 +53,71 @@ module.exports = class AfipWebService {
 		 **/
 		this.afip = webServiceOptions.afip;
 		
-		if (this.afip.options['production']) {
-			this.WSDL = path.resolve(__dirname, '../Afip_res', this.WSDL);
+		/**
+		 * Options
+		 * 
+		 * @var object
+		 **/
+		this.options = options;
+
+		if (options['generic'] === true) {
+			if (typeof options['WSDL'] === 'undefined') {
+				throw new Error("WSDL field is required in options");
+			}
+
+			if (typeof options['URL'] === 'undefined') {
+				throw new Error("URL field is required in options");
+			}
+
+			if (typeof options['WSDL_TEST'] === 'undefined') {
+				throw new Error("WSDL_TEST field is required in options");
+			}
+
+			if (typeof options['URL_TEST'] === 'undefined') {
+				throw new Error("URL_TEST field is required in options");
+			}
+
+			if (typeof options['service'] === 'undefined') {
+				throw new Error("service field is required in options");
+			}
+
+			if (this.afip.options['production'] === true) {
+				this.WSDL = options['WSDL'];
+				this.URL 	= options['URL'];
+			} else {
+				this.WSDL = options['WSDL_TEST'];
+				this.URL 	= options['URL_TEST'];
+			}
+
+			if (typeof options['soapV1_2'] === 'undefined') {
+				options['soapV1_2'] = true;
+			}
+
+			this.soapv12 = options['soapV1_2']
 		}
-		else{
-			this.WSDL = path.resolve(__dirname, '../Afip_res', this.WSDL_TEST);
-			this.URL = this.URL_TEST;
+		else {
+			if (this.afip.options['production']) {
+				this.WSDL = path.resolve(__dirname, '../Afip_res', this.WSDL);
+			}
+			else{
+				this.WSDL = path.resolve(__dirname, '../Afip_res', this.WSDL_TEST);
+				this.URL = this.URL_TEST;
+			}
 		}
+	}
+
+	/**
+	 * Get Web Service Token Authorization from WSAA
+	 * 
+	 * @since 0.6
+	 *
+	 * @throws Error if an error occurs
+	 *
+	 * @return TokenAuthorization Token Authorization for AFIP Web Service 
+	 **/
+	async getTokenAuthorization()
+	{
+		return this.afip.GetServiceTA(this.options['service']);
 	}
 
 	/**

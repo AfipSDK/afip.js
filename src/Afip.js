@@ -13,6 +13,10 @@ var xmlParser = new xml2js.Parser({
 	tagNameProcessors: [key => key.replace('soapenv:', '')]
 });
 
+// Generic Web Service
+const AfipWebService = require('./Class/AfipWebService');
+
+
 // Available Web Services
 const ElectronicBilling = require('./Class/ElectronicBilling');
 const RegisterScopeFour = require('./Class/RegisterScopeFour');
@@ -252,4 +256,20 @@ Afip.prototype.CreateServiceTA = async function(service) {
 			resolve();
 		});
 	}));
+}
+
+/**
+ * Create generic Web Service
+ * 
+ * @param string service Web Service name
+ * @param array options Web Service options
+ *
+ * @return AfipWebService Token Authorization for AFIP Web Service 
+ **/
+Afip.prototype.WebService = function (service, options)
+{
+	options['service'] = service;
+	options['generic'] = true;
+
+	return new AfipWebService({ afip: this }, options);
 }

@@ -16,7 +16,7 @@ module.exports = class RegisterScopeFive extends AfipWebService {
 			afip
 		}
 
-		super(options);
+		super(options, { service: 'ws_sr_padron_a5' });
 	}
 	/**
 	 * Asks to web service for servers status {@see WS 

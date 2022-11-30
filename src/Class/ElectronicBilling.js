@@ -16,7 +16,7 @@ module.exports = class ElectronicBilling extends AfipWebService {
 			afip
 		}
 
-		super(options);
+		super(options, { service: 'wsfe' });
 	}
 
 	/**

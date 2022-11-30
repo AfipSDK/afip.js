@@ -142,6 +142,8 @@ module.exports = class AfipWebService {
 		// Call to SOAP method
 		let [ result ] = await this.soapClient[operation+'Async'](params);
 		
+		this.afip.TrackUsage(this.options['service'], operation, params);
+
 		//Return response parsed as JSON
 		return result;
 	}

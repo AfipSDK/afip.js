@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/AfipSDK/afip.js#readme",
   "dependencies": {
+    "mixpanel": "^0.17.0",
     "node-forge": "^1.0.0",
     "soap": "^0.24.0",
     "xml2js": "^0.4.22"

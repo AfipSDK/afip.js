@@ -16,7 +16,7 @@ module.exports = class RegisterScopeTen extends AfipWebService {
 			afip
 		}
 
-		super(options);
+		super(options, { service: 'ws_sr_padron_a10' });
 	}
 	/**
 	 * Asks to web service for servers status {@see WS 

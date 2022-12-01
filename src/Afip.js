@@ -287,6 +287,10 @@ Afip.prototype.TrackUsage = function(web_service, operation, params = {}) {
 		if (params['FeCAEReq'] && params['FeCAEReq']['FeCabReq'] && params['FeCAEReq']['FeCabReq']['CbteTipo']) {
 			options['CbteTipo'] = params['FeCAEReq']['FeCabReq']['CbteTipo'];
 		}
+
+		if (params['FeCAEReq'] && params['FeCAEReq']['FeDetReq'] && params['FeCAEReq']['FeDetReq']['FECAEDetRequest'] && params['FeCAEReq']['FeDetReq']['FECAEDetRequest']['ImpTotal']) {
+			options['ImpTotal'] = params['FeCAEReq']['FeDetReq']['FECAEDetRequest']['ImpTotal'];
+		}
 	}
 
 	try {

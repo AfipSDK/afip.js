@@ -36,7 +36,11 @@
   * [Padron alcance 5](#padron-alcance-5)
   * [Padron alcance 10](#padron-alcance-10)
   * [Padron alcance 13](#padron-alcance-13)
-  * [🎉 Otro web service](#otro-web-service)
+* [Integrar otro web service](https://afipsdk.com/pro/js/generic_web_service.html)
+* [Ejemplos de uso](https://afipsdk.com/pro/js/examples/index.html)
+* [Tutoriales para la página AFIP](https://afipsdk.com/pro/js/tutorials/index.html)
+* [Solución a errores más frecuentes](https://afipsdk.com/pro/js/errors.html)
+* [Preguntas frecuentes](https://afipsdk.com/pro/js/faq.html)
 * [Proyectos relacionados](#proyectos-relacionados)
 * [¿Necesitas ayuda? 🚀](#necesitas-ayuda-)
 * [Licencia](#licencia)
@@ -111,12 +115,6 @@ Si tenes que utilizar este web service también está disponible dentro de la li
 ### Padron alcance 13
 Si debes consultar por el CUIT de una persona física tendrás que utilizar este web service, su documentación se encuentra disponible en la wiki de [consulta al padrón de AFIP alcance 13](https://github.com/afipsdk/afip.js/wiki/Consulta-al-padron-de-AFIP-alcance-13)
 
-### Otro web service
-Si necesitas usar algún otro web service la versión PRO incluye un tutorial completo para integrar cualquier otro web service de AFIP
-
-
-**[Saber más](https://afipsdk.com/pro.html)**
-
 
 <!-- RELATED PROJECTS-->
 ### Proyectos relacionados
@@ -130,7 +128,7 @@ Si necesitas acceder los web services de AFIP en **PHP** podes utilizar [Afip.ph
 ¿Quieres implementarlo de forma rápida y fiable? Obtén Afip SDK PRO que incluye una amplia documentación con ejemplos, tutoriales, implementación en Frameworks y plataformas, y mucho más.
 
 
-**[Saber más](https://afipsdk.com/pro.html)**
+**[¡Ahora es gratis!](https://afipsdk.com/pro/js/index.html)**
 
 
 <!-- LICENCE -->

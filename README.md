@@ -75,7 +75,7 @@ yarn add @afipsdk/afip.js
 * Remplazar *node_modules/@afipsdk/afip.js/Afip_res/cert* por tu certificado provisto por AFIP y *node_modules/@afipsdk/afip.js/Afip_res/key* por la clave generada. 
 * La carpeta *Afip_res* deberá tener permisos de escritura.
 
-Ir a http://www.afip.gob.ar/ws/documentacion/certificados.asp para obtener mas información de como generar la clave y certificado
+Ir a [Tutoriales para la página AFIP](https://afipsdk.com/pro/js/tutorials/index.html) para obtener mas información de como generar la clave y certificado
 
 # Como usarlo
 

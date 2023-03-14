@@ -36,11 +36,11 @@
   * [Padron alcance 5](#padron-alcance-5)
   * [Padron alcance 10](#padron-alcance-10)
   * [Padron alcance 13](#padron-alcance-13)
-* [Integrar otro web service](https://afipsdk.com/pro/js/generic_web_service.html)
-* [Ejemplos de uso](https://afipsdk.com/pro/js/examples/index.html)
-* [Tutoriales para la página AFIP](https://afipsdk.com/pro/js/tutorials/index.html)
-* [Solución a errores más frecuentes](https://afipsdk.com/pro/js/errors.html)
-* [Preguntas frecuentes](https://afipsdk.com/pro/js/faq.html)
+* [Integrar otro web service](https://afipsdk.com/wiki/js/generic_web_service.html)
+* [Ejemplos de uso](https://afipsdk.com/wiki/js/examples/index.html)
+* [Tutoriales para la página AFIP](https://afipsdk.com/wiki/js/tutorials/index.html)
+* [Solución a errores más frecuentes](https://afipsdk.com/wiki/js/errors.html)
+* [Preguntas frecuentes](https://afipsdk.com/wiki/js/faq.html)
 * [Proyectos relacionados](#proyectos-relacionados)
 * [¿Necesitas ayuda? 🚀](#necesitas-ayuda-)
 * [Licencia](#licencia)
@@ -75,7 +75,7 @@ yarn add @afipsdk/afip.js
 * Remplazar *node_modules/@afipsdk/afip.js/Afip_res/cert* por tu certificado provisto por AFIP y *node_modules/@afipsdk/afip.js/Afip_res/key* por la clave generada. 
 * La carpeta *Afip_res* deberá tener permisos de escritura.
 
-Ir a [Tutoriales para la página AFIP](https://afipsdk.com/pro/js/tutorials/index.html) para obtener mas información de como generar la clave y certificado
+Ir a [Tutoriales para la página AFIP](https://afipsdk.com/wiki/js/tutorials/index.html) para obtener mas información de como generar la clave y certificado
 
 # Como usarlo
 
@@ -128,7 +128,7 @@ Si necesitas acceder los web services de AFIP en **PHP** podes utilizar [Afip.ph
 ¿Quieres implementarlo de forma rápida y fiable? Obtén Afip SDK PRO que incluye una amplia documentación con ejemplos, tutoriales, implementación en Frameworks y plataformas, y mucho más.
 
 
-**[¡Ahora es gratis!](https://afipsdk.com/pro/js/index.html)**
+**[¡Ahora es gratis!](https://afipsdk.com/wiki/js/index.html)**
 
 
 <!-- LICENCE -->

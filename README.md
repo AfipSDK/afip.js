@@ -147,7 +147,7 @@ _Este software y sus desarrolladores no tienen ninguna relación con la AFIP._
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
-[npm-shield]: https://img.shields.io/npm/dw/@afipsdk/afip.js.svg
+[npm-shield]: https://img.shields.io/npm/dt/@afipsdk/afip.js.svg
 [contributors-shield]: https://img.shields.io/github/contributors/afipsdk/afip.js.svg?color=orange
 [issues-shield]: https://img.shields.io/github/issues-closed-raw/afipsdk/afip.js.svg?color=blueviolet
 [license-shield]: https://img.shields.io/github/license/afipsdk/afip.js.svg?color=blue

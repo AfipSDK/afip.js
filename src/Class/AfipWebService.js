@@ -139,11 +139,11 @@ module.exports = class AfipWebService {
 			this.soapClient.setEndpoint(this.URL);
 		}
 
+		await this.afip.TrackUsage(this.options['service'], operation, params);
+
 		// Call to SOAP method
 		let [ result ] = await this.soapClient[operation+'Async'](params);
 		
-		this.afip.TrackUsage(this.options['service'], operation, params);
-
 		//Return response parsed as JSON
 		return result;
 	}

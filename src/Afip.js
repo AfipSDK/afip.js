@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const soap = require('soap');
+const axios = require('axios');
 const forge = require('node-forge');
 const xml2js = require('xml2js');
 const Mixpanel = require('mixpanel');
@@ -36,7 +37,6 @@ const RegisterScopeThirteen = require('./Class/RegisterScopeThirteen');
  * 
  * @author 	Afip SDK afipsdk@gmail.com
  * @package Afip
- * @version 0.6
  **/
 module.exports = Afip;
 
@@ -280,7 +280,7 @@ Afip.prototype.CreateServiceTA = async function(service) {
  * @param string operation SOAP operation called 
  * @param array params Parameters for the ws
  **/
-Afip.prototype.TrackUsage = function(web_service, operation, params = {}) {
+Afip.prototype.TrackUsage = async function(web_service, operation, params = {}) {
 	options = {};
 
 	if (web_service === 'wsfe' && operation === 'FECAESolicitar') {
@@ -296,6 +296,38 @@ Afip.prototype.TrackUsage = function(web_service, operation, params = {}) {
 	try {
 		this.mixpanel.track(web_service+'.'+operation, Object.assign({}, this.mixpanelRegister, options));
 	} catch (e) {}
+
+	if (!this.AdminClient && this.options['production'] === true) {
+		this.AdminClient = axios.create({
+			baseURL: 'https://app.afipsdk.com/api/',
+			timeout: 10000
+		});
+	
+		this.AdminClient.defaults.headers.common['sdk-version-number'] = '0.7.8';
+		this.AdminClient.defaults.headers.common['sdk-library'] = 'javascript';
+
+		if (this.options['access_token']) {
+			this.AdminClient.defaults.headers.common['Authorization'] = `Bearer ${this.options['access_token']}`;
+		}
+	
+		try {
+			await this.AdminClient.post('v1/sdk-events', {
+				"name": "initialized",
+				"properties": {
+					"environment": this.options['production'] === true ? "prod" : "dev",
+					"tax_id": `${this.options['CUIT']}`,
+					"afip_sdk_library": "javascript"
+				}
+			});
+		} catch (error) {
+			if (error.response.data && error.response.data.message) {
+				throw Object.assign(new Error(error.response.data.message), error.response.data);
+			}
+			else {
+				throw Object.assign(new Error(error.response.statusText), error.response);
+			}
+		}
+	}
 }
 
 /**

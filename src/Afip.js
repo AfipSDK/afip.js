@@ -320,7 +320,10 @@ Afip.prototype.TrackUsage = async function(web_service, operation, params = {}) 
 				}
 			});
 		} catch (error) {
-			if (error.response.data && error.response.data.message) {
+			if (!error.response) {
+				throw error;
+			}
+			else if (error.response.data && error.response.data.message) {
 				throw Object.assign(new Error(error.response.data.message), error.response.data);
 			}
 			else {

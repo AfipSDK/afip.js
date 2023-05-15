@@ -87,7 +87,9 @@ function Afip(options = {}){
 	if (!(this instanceof Afip)) {return new Afip(options)}
 
 	// Create an instance of the mixpanel client
+	/** @private */
 	this.mixpanel = Mixpanel.init('e87ee11c8cc288e5c5dc213c4d957c7e');
+	/** @private */
 	this.mixpanelRegister = {};
 
 	this.mixpanelRegister['afip_sdk_library'] = 'javascript';
@@ -138,6 +140,7 @@ function Afip(options = {}){
  * Gets token authorization for an AFIP Web Service
  *
  * @param service Service for token authorization
+ * @private
  **/
 Afip.prototype.GetServiceTA = async function(service, firstTry = true) {
 	// Declare token authorization file path
@@ -279,6 +282,7 @@ Afip.prototype.CreateServiceTA = async function(service) {
  * @param string web_service ID of the web service used
  * @param string operation SOAP operation called 
  * @param array params Parameters for the ws
+ * @private
  **/
 Afip.prototype.TrackUsage = async function(web_service, operation, params = {}) {
 	options = {};
@@ -298,6 +302,7 @@ Afip.prototype.TrackUsage = async function(web_service, operation, params = {}) 
 	} catch (e) {}
 
 	if (!this.AdminClient && this.options['production'] === true) {
+		/** @private */
 		this.AdminClient = axios.create({
 			baseURL: 'https://app.afipsdk.com/api/',
 			timeout: 10000

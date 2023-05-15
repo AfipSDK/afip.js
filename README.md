@@ -145,7 +145,10 @@ Link del proyecto: [https://github.com/afipsdk/afip.js](https://github.com/afips
 
 _Este software y sus desarrolladores no tienen ninguna relación con la AFIP._
 
-
+<!-- 
+Generate Types:
+npx -p typescript tsc src/**/*.js --declaration --allowJs --emitDeclarationOnly --outDir types 
+-->
 <!-- MARKDOWN LINKS & IMAGES -->
 [npm-shield]: https://img.shields.io/npm/dt/@afipsdk/afip.js.svg
 [contributors-shield]: https://img.shields.io/github/contributors/afipsdk/afip.js.svg?color=orange

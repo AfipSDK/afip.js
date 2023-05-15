@@ -32,6 +32,7 @@
   "engines": {
     "node": ">=7.0"
   },
+  "types": "./types/Afip.d.ts",
   "devDependencies": {
     "@types/bluebird": "^3.5.38",
     "@types/node": "^20.1.4"

@@ -42,7 +42,6 @@
 * [Solución a errores más frecuentes](https://afipsdk.com/wiki/js/errors.html)
 * [Preguntas frecuentes](https://afipsdk.com/wiki/js/faq.html)
 * [Proyectos relacionados](#proyectos-relacionados)
-* [¿Necesitas ayuda? 🚀](#necesitas-ayuda-)
 * [Licencia](#licencia)
 * [Contacto](#contacto)
 
@@ -121,14 +120,6 @@ Si debes consultar por el CUIT de una persona física tendrás que utilizar este
 
 #### Libreria para PHP
 Si necesitas acceder los web services de AFIP en **PHP** podes utilizar [Afip.php](https://github.com/afipsdk/afip.php)
-
-<!-- AFIP SDK PRO -->
-### ¿Necesitas ayuda? 🚀
-
-¿Quieres implementarlo de forma rápida y fiable? Obtén Afip SDK PRO que incluye una amplia documentación con ejemplos, tutoriales, implementación en Frameworks y plataformas, y mucho más.
-
-
-**[¡Ahora es gratis!](https://afipsdk.com/wiki/js/index.html)**
 
 
 <!-- LICENCE -->

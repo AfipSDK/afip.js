@@ -17,7 +17,7 @@ declare class Afip {
     ElectronicBilling: ElectronicBilling;
     RegisterScopeFour: RegisterScopeFour;
     RegisterScopeFive: RegisterScopeFive;
-    RegisterInscriptionProof: RegisterScopeFive;
+    RegisterInscriptionProof: RegisterInscriptionProof;
     RegisterScopeTen: RegisterScopeTen;
     RegisterScopeThirteen: RegisterScopeThirteen;
     private GetServiceTA;
@@ -46,6 +46,7 @@ declare class Afip {
 import ElectronicBilling = require("./Class/ElectronicBilling");
 import RegisterScopeFour = require("./Class/RegisterScopeFour");
 import RegisterScopeFive = require("./Class/RegisterScopeFive");
+import RegisterInscriptionProof = require("./Class/RegisterInscriptionProof");
 import RegisterScopeTen = require("./Class/RegisterScopeTen");
 import RegisterScopeThirteen = require("./Class/RegisterScopeThirteen");
 import AfipWebService = require("./Class/AfipWebService");

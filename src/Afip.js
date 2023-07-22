@@ -23,6 +23,7 @@ const AfipWebService = require('./Class/AfipWebService');
 const ElectronicBilling = require('./Class/ElectronicBilling');
 const RegisterScopeFour = require('./Class/RegisterScopeFour');
 const RegisterScopeFive = require('./Class/RegisterScopeFive');
+const RegisterInscriptionProof = require('./Class/RegisterInscriptionProof');
 const RegisterScopeTen = require('./Class/RegisterScopeTen');
 const RegisterScopeThirteen = require('./Class/RegisterScopeThirteen');
 
@@ -131,7 +132,7 @@ function Afip(options = {}){
 	this.ElectronicBilling 			= new ElectronicBilling(this);
 	this.RegisterScopeFour 			= new RegisterScopeFour(this);
 	this.RegisterScopeFive 			= new RegisterScopeFive(this);
-	this.RegisterInscriptionProof 	= new RegisterScopeFive(this);
+	this.RegisterInscriptionProof 	= new RegisterInscriptionProof(this);
 	this.RegisterScopeTen 			= new RegisterScopeTen(this);
 	this.RegisterScopeThirteen 		= new RegisterScopeThirteen(this);
 }

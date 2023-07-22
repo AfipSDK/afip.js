@@ -164,6 +164,42 @@ module.exports = class ElectronicBilling extends AfipWebService {
 	}
 
 	/**
+	 * Create CAEA 
+	 * 
+	 * Send a request to AFIP servers  to create a CAEA
+	 *
+	 * @param int period 	Time period
+	 * @param int fortnight	Monthly fortnight (1 or 2)
+	 **/
+	async createCAEA(period, fortnight)
+	{
+		const req = {
+			'Periodo': period,
+			'Orden': fortnight
+		};
+
+		return (await this.executeRequest('FECAEASolicitar', req)).ResultGet;
+	}
+
+	/**
+	 * Get CAEA 
+	 * 
+	 * Ask to AFIP servers for a CAEA information
+	 *
+	 * @param int period 	Time period
+	 * @param int fortnight	Monthly fortnight (1 or 2)
+	 **/
+	async getCAEA(period, fortnight)
+	{
+		const req = {
+			'Periodo': period,
+			'Orden': fortnight
+		};
+
+		return (await this.executeRequest('FECAEAConsultar', req)).ResultGet;
+	}
+
+	/**
 	 * Asks to AFIP Servers for sales points availables {@see WS 
 	 * Specification item 4.11}
 	 *

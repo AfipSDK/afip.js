@@ -59,6 +59,9 @@ module.exports = class ElectronicBilling extends AfipWebService {
 	 * 	AFIP {@see WS Specification item 4.1.3}
 	 **/
 	async createVoucher(data, returnResponse = false) {
+		// Reassign data to avoid modify te original object
+		data = Object.assign({}, data);
+
 		const req = {
 			'FeCAEReq' : {
 				'FeCabReq' : {

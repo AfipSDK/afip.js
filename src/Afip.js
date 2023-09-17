@@ -45,7 +45,7 @@ function Afip(options = {}){
 	/**
 	 * SDK version
 	 **/
-	this.sdk_version_number = '0.7.8';
+	this.sdk_version_number = '0.8.0';
 
 	/**
 	 * File name for the WSDL corresponding to WSAA

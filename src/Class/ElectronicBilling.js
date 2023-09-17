@@ -20,6 +20,32 @@ module.exports = class ElectronicBilling extends AfipWebService {
 	}
 
 	/**
+	 * Create PDF 
+	 * 
+	 * Send a request to Afip SDK server to create a PDF
+	 *
+	 * @param {object} data Data for PDF creation
+	 **/
+	async createPDF(data)
+	{
+		try {
+			const { data: { file, file_name } } = await this.afip.AdminClient.post('v1/pdfs', data);
+
+			return { file, file_name };
+		} catch (error) {
+			if (!error.response) {
+				throw error;
+			}
+			else if (error.response.data && error.response.data.message) {
+				throw Object.assign(new Error(error.response.data.message), error.response.data);
+			}
+			else {
+				throw Object.assign(new Error(error.response.statusText), error.response);
+			}
+		}
+	}
+
+	/**
 	 * Gets last voucher number 
 	 * 
 	 * Asks to Afip servers for number of the last voucher created for

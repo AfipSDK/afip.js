@@ -43,6 +43,11 @@ module.exports = Afip;
 
 function Afip(options = {}){
 	/**
+	 * SDK version
+	 **/
+	this.sdk_version_number = '0.7.8';
+
+	/**
 	 * File name for the WSDL corresponding to WSAA
 	 *
 	 * @var string
@@ -127,6 +132,20 @@ function Afip(options = {}){
 	}
 	else {
 		this.WSAA_URL = 'https://wsaahomo.afip.gov.ar/ws/services/LoginCms';
+	}
+
+	// Create an instance of the admin client
+	/** @private */
+	this.AdminClient = axios.create({
+		baseURL: 'https://app.afipsdk.com/api/',
+		timeout: 10000
+	});
+
+	this.AdminClient.defaults.headers.common['sdk-version-number'] = this.sdk_version_number;
+	this.AdminClient.defaults.headers.common['sdk-library'] = 'javascript';
+
+	if (this.options['access_token']) {
+		this.AdminClient.defaults.headers.common['Authorization'] = `Bearer ${this.options['access_token']}`;
 	}
 
 	this.ElectronicBilling 			= new ElectronicBilling(this);
@@ -302,20 +321,7 @@ Afip.prototype.TrackUsage = async function(web_service, operation, params = {}) 
 		this.mixpanel.track(web_service+'.'+operation, Object.assign({}, this.mixpanelRegister, options));
 	} catch (e) {}
 
-	if (!this.AdminClient && this.options['production'] === true) {
-		/** @private */
-		this.AdminClient = axios.create({
-			baseURL: 'https://app.afipsdk.com/api/',
-			timeout: 10000
-		});
-	
-		this.AdminClient.defaults.headers.common['sdk-version-number'] = '0.7.8';
-		this.AdminClient.defaults.headers.common['sdk-library'] = 'javascript';
-
-		if (this.options['access_token']) {
-			this.AdminClient.defaults.headers.common['Authorization'] = `Bearer ${this.options['access_token']}`;
-		}
-	
+	if (!this.AdminClientInitialized && this.options['production'] === true) {
 		try {
 			await this.AdminClient.post('v1/sdk-events', {
 				"name": "initialized",
@@ -325,6 +331,9 @@ Afip.prototype.TrackUsage = async function(web_service, operation, params = {}) 
 					"afip_sdk_library": "javascript"
 				}
 			});
+
+			/** @private */
+			this.AdminClientInitialized = true;
 		} catch (error) {
 			if (!error.response) {
 				throw error;

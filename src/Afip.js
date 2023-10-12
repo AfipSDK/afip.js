@@ -143,6 +143,7 @@ function Afip(options = {}){
 
 	this.AdminClient.defaults.headers.common['sdk-version-number'] = this.sdk_version_number;
 	this.AdminClient.defaults.headers.common['sdk-library'] = 'javascript';
+	this.AdminClient.defaults.headers.common['sdk-environment'] = this.options['production'] === true ? "prod" : "dev";
 
 	if (this.options['access_token']) {
 		this.AdminClient.defaults.headers.common['Authorization'] = `Bearer ${this.options['access_token']}`;

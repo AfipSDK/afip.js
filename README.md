@@ -34,11 +34,6 @@ Con más de 50.000 descargas en sus versiones de PHP y Node, desde el 2017 Afip 
 
 Esta librería fue creada con la intención de ayudar a los programadores a usar los Web Services de AFIP sin romperse la cabeza ni perder tiempo tratando de entender la complicada documentación que AFIP provee.
 
-<!-- LICENCE -->
-### Licencia
-Distribuido bajo la licencia MIT. Vea `LICENSE` para más información.
-
-
 <!-- CONTACT -->
 ### Contacto
 Afip SDK - afipsdk@gmail.com

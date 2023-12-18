@@ -29,5 +29,14 @@ declare class RegisterInscriptionProof extends AfipWebService {
      * @return [object] returns web service full response
      **/
     getTaxpayersDetails(identifiers: any): Promise<any>;
+    /**
+     * Send request to AFIP servers
+     *
+     * @param operation SOAP operation to execute
+     * @param params Parameters to send
+     *
+     * @return mixed Operation results
+     **/
+    executeRequest(operation: any, params?: {}): Promise<any>;
 }
 import AfipWebService = require("./AfipWebService");

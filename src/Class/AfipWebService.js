@@ -1,4 +1,3 @@
-const soap = require('soap');
 const path = require('path');
 
 /**
@@ -61,32 +60,8 @@ module.exports = class AfipWebService {
 		this.options = options;
 
 		if (options['generic'] === true) {
-			if (typeof options['WSDL'] === 'undefined') {
-				throw new Error("WSDL field is required in options");
-			}
-
-			if (typeof options['URL'] === 'undefined') {
-				throw new Error("URL field is required in options");
-			}
-
-			if (typeof options['WSDL_TEST'] === 'undefined') {
-				throw new Error("WSDL_TEST field is required in options");
-			}
-
-			if (typeof options['URL_TEST'] === 'undefined') {
-				throw new Error("URL_TEST field is required in options");
-			}
-
 			if (typeof options['service'] === 'undefined') {
 				throw new Error("service field is required in options");
-			}
-
-			if (this.afip.options['production'] === true) {
-				this.WSDL = options['WSDL'];
-				this.URL 	= options['URL'];
-			} else {
-				this.WSDL = options['WSDL_TEST'];
-				this.URL 	= options['URL_TEST'];
 			}
 
 			if (typeof options['soapV1_2'] === 'undefined') {
@@ -95,56 +70,45 @@ module.exports = class AfipWebService {
 
 			this.soapv12 = options['soapV1_2']
 		}
-		else {
-			if (this.afip.options['production']) {
-				this.WSDL = path.resolve(__dirname, '../Afip_res', this.WSDL);
-			}
-			else{
-				this.WSDL = path.resolve(__dirname, '../Afip_res', this.WSDL_TEST);
-				this.URL = this.URL_TEST;
-			}
-		}
 	}
 
 	/**
 	 * Get Web Service Token Authorization from WSAA
 	 * 
-	 * @since 0.6
-	 *
+	 * @param {boolean} force Force to create a new token 
+	 * authorization even if it is not expired
+	 * 
 	 * @throws Error if an error occurs
 	 *
 	 * @return TokenAuthorization Token Authorization for AFIP Web Service 
 	 **/
-	async getTokenAuthorization()
+	async getTokenAuthorization(force = false)
 	{
-		return this.afip.GetServiceTA(this.options['service']);
+		return this.afip.GetServiceTA(this.options['service'], force);
 	}
 
 	/**
 	 * Send request to AFIP servers
 	 * 
-	 * @param operation SOAP operation to execute 
-	 * @param params Parameters to send
+	 * @param {string} method SOAP operation to execute 
+	 * @param {any} params Parameters to send
 	 **/
-	async executeRequest(operation, params = {}) {
-		// Create SOAP client
-		if (!this.soapClient) {
-			let soapClientOptions = { 
-				disableCache: true, 
-				forceSoap12Headers: this.soapv12
-			};
+	async executeRequest(method, params = {}) {
+		// Prepare data to for request
+		const data = {
+			method,
+			params,
+			environment: this.afip.options['production'] === true ? "prod" : "dev",
+			wsid: this.options['service'],
+			url: this.afip.options['production'] === true ? this.URL : this.URL_TEST,
+			wsdl: this.afip.options['production'] === true ? this.WSDL : this.WSDL_TEST,
+			soap_v_1_2: this.soapv12
+		};
 
-			this.soapClient = await soap.createClientAsync(this.WSDL, soapClientOptions);
-			/* Sobre escribir la URL del archivo .wsdl */
-			this.soapClient.setEndpoint(this.URL);
-		}
+		// Execute request
+		const result = await this.afip.AdminClient.post('v1/afip/requests', data);
 
-		await this.afip.TrackUsage(this.options['service'], operation, params);
-
-		// Call to SOAP method
-		let [ result ] = await this.soapClient[operation+'Async'](params);
-		
-		//Return response parsed as JSON
-		return result;
+		//Return response
+		return result.data;
 	}
 }

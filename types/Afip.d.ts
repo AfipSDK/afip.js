@@ -2,18 +2,16 @@ export = Afip;
 declare function Afip(options?: {}): Afip;
 declare class Afip {
     constructor(options?: {});
-    /** @private */
-    private mixpanel;
-    /** @private */
-    private mixpanelRegister;
+    /**
+     * SDK version
+     **/
+    sdk_version_number: string;
     options: {};
     CUIT: any;
-    RES_FOLDER: any;
-    TA_FOLDER: any;
-    CERT: string;
-    PRIVATEKEY: string;
-    WSAA_WSDL: string;
-    WSAA_URL: string;
+    CERT: any;
+    PRIVATEKEY: any;
+    /** @private */
+    private AdminClient;
     ElectronicBilling: ElectronicBilling;
     RegisterScopeFour: RegisterScopeFour;
     RegisterScopeFive: RegisterScopeFive;
@@ -22,26 +20,18 @@ declare class Afip {
     RegisterScopeThirteen: RegisterScopeThirteen;
     private GetServiceTA;
     /**
-     * Create an TA from WSAA
-     *
-     * Request to WSAA for a tokent authorization for service
-     * and save this in a json file
-     *
-     * @param service Service for token authorization
+     * Get last request and last response XML
      **/
-    CreateServiceTA(service: any): Promise<void>;
-    private TrackUsage;
-    /** @private */
-    private AdminClient;
+    getLastRequestXML(): Promise<any>;
     /**
      * Create generic Web Service
      *
-     * @param string service Web Service name
-     * @param array options Web Service options
+     * @param {string} service Web Service name
+     * @param {any} options Web Service options
      *
      * @return AfipWebService Token Authorization for AFIP Web Service
      **/
-    WebService(service: any, options: any): AfipWebService;
+    WebService(service: string, options?: any): AfipWebService;
 }
 import ElectronicBilling = require("./Class/ElectronicBilling");
 import RegisterScopeFour = require("./Class/RegisterScopeFour");

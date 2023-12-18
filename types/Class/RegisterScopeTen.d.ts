@@ -21,5 +21,14 @@ declare class RegisterScopeTen extends AfipWebService {
      * WS Specification item 3.2.2}
      **/
     getTaxpayerDetails(identifier: any): Promise<any>;
+    /**
+     * Send request to AFIP servers
+     *
+     * @param operation SOAP operation to execute
+     * @param params Parameters to send
+     *
+     * @return mixed Operation results
+     **/
+    executeRequest(operation: any, params?: {}): Promise<any>;
 }
 import AfipWebService = require("./AfipWebService");

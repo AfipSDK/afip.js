@@ -2,6 +2,17 @@ export = ElectronicBilling;
 declare class ElectronicBilling extends AfipWebService {
     constructor(afip: any);
     /**
+     * Create PDF
+     *
+     * Send a request to Afip SDK server to create a PDF
+     *
+     * @param {object} data Data for PDF creation
+     **/
+    createPDF(data: object): Promise<{
+        file: any;
+        file_name: any;
+    }>;
+    /**
      * Gets last voucher number
      *
      * Asks to Afip servers for number of the last voucher created for
@@ -152,6 +163,15 @@ declare class ElectronicBilling extends AfipWebService {
      * @return string date in format yyyy-mm-dd
      **/
     formatDate(date: any): any;
+    /**
+     * Sends request to AFIP servers
+     *
+     * @param string 	operation 	SOAP operation to do
+     * @param array 	params 	Parameters to send
+     *
+     * @return mixed Operation results
+     **/
+    executeRequest(operation: any, params?: {}): Promise<any>;
     /**
      * Make default request parameters for most of the operations
      *

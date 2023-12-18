@@ -47,20 +47,19 @@ declare class AfipWebService {
     /**
      * Get Web Service Token Authorization from WSAA
      *
-     * @since 0.6
+     * @param {boolean} force Force to create a new token
+     * authorization even if it is not expired
      *
      * @throws Error if an error occurs
      *
      * @return TokenAuthorization Token Authorization for AFIP Web Service
      **/
-    getTokenAuthorization(): Promise<any>;
+    getTokenAuthorization(force?: boolean): Promise<any>;
     /**
      * Send request to AFIP servers
      *
-     * @param operation SOAP operation to execute
-     * @param params Parameters to send
+     * @param {string} method SOAP operation to execute
+     * @param {any} params Parameters to send
      **/
-    executeRequest(operation: any, params?: {}): Promise<any>;
-    soapClient: soap.Client;
+    executeRequest(method: string, params?: any): Promise<any>;
 }
-import soap = require("soap");

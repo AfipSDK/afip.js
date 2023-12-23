@@ -14,7 +14,7 @@
   <h3 align="center">Afip.js</h3>
 
   <p align="center">
-    Librería para conectarse a los Web Services de AFIP
+    Librería para conectarse a los Web Services de AFIP con Typescript y Javascript
     <br />
     <a href="https://docs.afipsdk.com"><strong>Explorar documentación »</strong></a>
     <br />

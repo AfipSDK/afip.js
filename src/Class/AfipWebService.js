@@ -59,6 +59,22 @@ module.exports = class AfipWebService {
 		 **/
 		this.options = options;
 
+		if (options['WSDL']) {
+			this.WSDL = options['WSDL'];
+		}
+
+		if (options['URL']) {
+			this.URL = options['URL'];
+		}
+
+		if (options['WSDL_TEST']) {
+			this.WSDL_TEST = options['WSDL_TEST'];
+		}
+
+		if (options['URL_TEST']) {
+			this.URL_TEST = options['URL_TEST'];
+		}
+
 		if (options['generic'] === true) {
 			if (typeof options['service'] === 'undefined') {
 				throw new Error("service field is required in options");

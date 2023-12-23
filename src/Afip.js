@@ -159,7 +159,7 @@ Afip.prototype.getLastRequestXML = async function() {
  * @param {string} service Web Service name
  * @param {any} options Web Service options
  *
- * @return AfipWebService Token Authorization for AFIP Web Service 
+ * @return AfipWebService New AFIP Web Service 
  **/
 Afip.prototype.WebService = function (service, options = {}) {
 	options['service'] = service;

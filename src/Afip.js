@@ -25,7 +25,7 @@ function Afip(options = {}){
 	/**
 	 * SDK version
 	 **/
-	this.sdk_version_number = '1.0.1';
+	this.sdk_version_number = '1.0.2';
 
 	/**
 	 * X.509 certificate in PEM format
@@ -166,4 +166,84 @@ Afip.prototype.WebService = function (service, options = {}) {
 	options['generic'] = true;
 
 	return new AfipWebService({ afip: this }, options);
+}
+
+/**
+ * Create AFIP cert
+ *
+ * @param {string} username Username used in AFIP page
+ * @param {string} password Password used in AFIP page
+ * @param {string} alias Alias for the cert
+ **/
+Afip.prototype.CreateCert = async function(username, password, alias) {
+	// Prepare data to for request
+	const data = {
+		environment: this.options['production'] === true ? "prod" : "dev",
+		tax_id: this.options['CUIT'],
+		username, 
+		password, 
+		alias
+	};
+
+	// Wait for max 120 seconds
+	let retry = 24;
+
+	while (retry-- >= 0) {
+		
+		// Execute request
+		const result = await this.AdminClient.post('v1/afip/certs', data);
+		
+		if (result.data.status === 'complete') {
+			return result.data.data;
+		}
+		
+		if (result.data.long_job_id) {
+			data.long_job_id = result.data.long_job_id;
+		}
+		// Wait 5 seconds
+		await (new Promise(resolve => setTimeout(resolve, 5000)));
+	}
+
+	throw new Error('Error: Waiting for too long');
+}
+
+/**
+ * Create authorization to use a web service
+ *
+ * @param {string} username Username used in AFIP page
+ * @param {string} password Password used in AFIP page
+ * @param {string} alias Cert alias
+ * @param {string} wsid Web service id
+ **/
+Afip.prototype.CreateWSAuth = async function(username, password, alias, wsid) {
+	// Prepare data to for request
+	const data = {
+		environment: this.options['production'] === true ? "prod" : "dev",
+		tax_id: this.options['CUIT'],
+		username, 
+		password,
+		wsid,
+		alias
+	};
+
+	// Wait for max 120 seconds
+	let retry = 24;
+
+	while (retry-- >= 0) {
+		// Execute request
+		const result = await this.AdminClient.post('v1/afip/ws-auths', data);
+		
+		if (result.data.status === 'complete') {
+			return result.data.data;
+		}
+
+		if (result.data.long_job_id) {
+			data.long_job_id = result.data.long_job_id;
+		}
+
+		// Wait 5 seconds
+		await (new Promise(resolve => setTimeout(resolve, 5000)));
+	}
+
+	throw new Error('Error: Waiting for too long');
 }

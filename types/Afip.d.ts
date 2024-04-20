@@ -29,9 +29,26 @@ declare class Afip {
      * @param {string} service Web Service name
      * @param {any} options Web Service options
      *
-     * @return AfipWebService Token Authorization for AFIP Web Service
+     * @return AfipWebService New AFIP Web Service
      **/
     WebService(service: string, options?: any): AfipWebService;
+    /**
+     * Create AFIP cert
+     *
+     * @param {string} username Username used in AFIP page
+     * @param {string} password Password used in AFIP page
+     * @param {string} alias Alias for the cert
+     **/
+    CreateCert(username: string, password: string, alias: string): Promise<any>;
+    /**
+     * Create authorization to use a web service
+     *
+     * @param {string} username Username used in AFIP page
+     * @param {string} password Password used in AFIP page
+     * @param {string} alias Cert alias
+     * @param {string} wsid Web service id
+     **/
+    CreateWSAuth(username: string, password: string, alias: string, wsid: string): Promise<any>;
 }
 import ElectronicBilling = require("./Class/ElectronicBilling");
 import RegisterScopeFour = require("./Class/RegisterScopeFour");

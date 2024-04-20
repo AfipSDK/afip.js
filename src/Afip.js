@@ -25,7 +25,7 @@ function Afip(options = {}){
 	/**
 	 * SDK version
 	 **/
-	this.sdk_version_number = '1.1.0';
+	this.sdk_version_number = '1.1.1';
 
 	/**
 	 * X.509 certificate in PEM format

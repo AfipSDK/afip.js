@@ -1,4 +1,5 @@
 const AfipWebService = require('./AfipWebService');
+const AfipWebServiceError = require('./AfipWebServiceError');
 
 /**
  * SDK for AFIP Electronic Billing (wsfe1)
@@ -401,7 +402,7 @@ module.exports = class ElectronicBilling extends AfipWebService {
 
 		if (res.Errors) {
 			const err = Array.isArray(res.Errors.Err) ? res.Errors.Err[0] : res.Errors.Err;
-			throw new Error(`(${err.Code}) ${err.Msg}`, err.Code);
+			throw new AfipWebServiceError(`(${err.Code}) ${err.Msg}`, err.Code);
 		}
 	}
 

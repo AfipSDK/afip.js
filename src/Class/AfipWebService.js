@@ -1,5 +1,6 @@
 const path = require('path');
 
+
 /**
  * Base class for AFIP web services 
  **/ 

@@ -188,7 +188,7 @@ module.exports = class ElectronicBilling extends AfipWebService {
 		};
 
 		const result = await this.executeRequest('FECompConsultar', req)
-		.catch(err => { if (err.code === 602) { return null } else { throw err }});
+		.catch(err => { if (err.code === 602) { return { ResultGet: null } } else { throw err }});
 
 		return result.ResultGet;
 	}

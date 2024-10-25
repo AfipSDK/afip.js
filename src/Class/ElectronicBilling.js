@@ -392,6 +392,10 @@ module.exports = class ElectronicBilling extends AfipWebService {
 
 		if (operation === 'FECAESolicitar' && res.FeDetResp) {
 			if (Array.isArray(res.FeDetResp.FECAEDetResponse)) {
+				if (res.FeDetResp.FECAEDetResponse.length > 1) {
+					return;
+				}
+
 				res.FeDetResp.FECAEDetResponse = res.FeDetResp.FECAEDetResponse[0];
 			}
 			

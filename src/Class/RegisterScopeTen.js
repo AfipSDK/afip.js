@@ -3,7 +3,7 @@ const AfipWebService = require('./AfipWebService');
 /**
  * SDK for AFIP Register Scope Ten (ws_sr_padron_a10)
  * 
- * @link http://www.afip.gob.ar/ws/ws_sr_padron_a10/manual_ws_sr_padron_a10_v1.1. WS Specification
+ * @link https://docs.afipsdk.com/
  **/
 module.exports = class RegisterScopeTen extends AfipWebService {
 	constructor(afip){

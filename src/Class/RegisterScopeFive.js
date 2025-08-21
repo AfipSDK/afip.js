@@ -3,7 +3,10 @@ const AfipWebService = require('./AfipWebService');
 /**
  * SDK for AFIP Register Scope Five (ws_sr_padron_a5)
  * 
- * @link http://www.afip.gob.ar/ws/ws_sr_padron_a5/manual_ws_sr_padron_a5_v1.0.pdf WS Specification
+ * **This web service is deprecated and will be removed in future major versions.**
+ * @deprecated Use RegisterInscriptionProof instead
+ * 
+ * @link https://docs.afipsdk.com/
  **/
 module.exports = class RegisterScopeFive extends AfipWebService {
 	constructor(afip){

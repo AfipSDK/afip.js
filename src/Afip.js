@@ -25,7 +25,7 @@ function Afip(options = {}){
 	/**
 	 * SDK version
 	 **/
-	this.sdk_version_number = '1.1.1';
+	this.sdk_version_number = '1.2.0';
 
 	/**
 	 * X.509 certificate in PEM format
@@ -51,9 +51,8 @@ function Afip(options = {}){
 	// Create an Afip instance if it is not
 	if (!(this instanceof Afip)) {return new Afip(options)}
 
-	if (!options.hasOwnProperty('CUIT')) {throw new Error("CUIT field is required in options array");}
-
 	// Define default options
+	if (!options.hasOwnProperty('CUIT')) {options['CUIT'] = undefined;}
 	if (!options.hasOwnProperty('production')) {options['production'] = false;}
 	if (!options.hasOwnProperty('cert')) {options['cert'] = undefined;}
 	if (!options.hasOwnProperty('key')) {options['key'] = undefined;}
@@ -169,7 +168,10 @@ Afip.prototype.WebService = function (service, options = {}) {
 }
 
 /**
- * Create AFIP cert
+ * Create AFIP cert.
+ *
+ * **This method is deprecated and will be removed in future major versions.**
+ * @deprecated Use CreateAutomation instead
  *
  * @param {string} username Username used in AFIP page
  * @param {string} password Password used in AFIP page
@@ -210,6 +212,9 @@ Afip.prototype.CreateCert = async function(username, password, alias) {
 /**
  * Create authorization to use a web service
  *
+ * **This method is deprecated and will be removed in future major versions.**
+ * @deprecated Use CreateAutomation instead
+ *
  * @param {string} username Username used in AFIP page
  * @param {string} password Password used in AFIP page
  * @param {string} alias Cert alias
@@ -239,6 +244,52 @@ Afip.prototype.CreateWSAuth = async function(username, password, alias, wsid) {
 
 		if (result.data.long_job_id) {
 			data.long_job_id = result.data.long_job_id;
+		}
+
+		// Wait 5 seconds
+		await (new Promise(resolve => setTimeout(resolve, 5000)));
+	}
+
+	throw new Error('Error: Waiting for too long');
+}
+
+/**
+ * Create automation
+ *
+ * @param {string} automation Name of the automation
+ * @param {array} params Parameters to send to the automation
+ * @param {boolean} wait Wait for the automation to finish (default true)
+ **/
+Afip.prototype.CreateAutomation = async function(automation, params, wait = true) {
+	// Prepare data to for request
+	const data = { automation, params };
+
+	// Execute request
+	const result = await this.AdminClient.post('v1/automations', data);
+	
+	if (!wait || result.data.status === 'complete') {
+		return result.data;
+	}
+
+	return this.GetAutomationDetails(result.data.id, wait);
+}
+
+/**
+ * Create automation
+ *
+ * @param {string} $id Id of the automation
+ * @param {boolean} $wait Wait for the automation to finish (default false)
+ **/
+Afip.prototype.GetAutomationDetails = async function(id, wait = false) {
+	// Wait for max 120 seconds
+	let retry = 24;
+
+	while (retry-- >= 0) {
+		// Execute request
+		const result = await this.AdminClient.get(`v1/automations/${id}`);
+
+		if (!wait || result.data.status === 'complete') {
+			return result.data;
 		}
 
 		// Wait 5 seconds

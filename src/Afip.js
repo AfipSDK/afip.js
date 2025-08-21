@@ -12,7 +12,7 @@ const RegisterScopeTen = require('./Class/RegisterScopeTen');
 const RegisterScopeThirteen = require('./Class/RegisterScopeThirteen');
 
 /**
- * Software Development Kit for AFIP web services
+ * Software Development Kit for ARCA web services
  * 
  * @link https://afipsdk.com/
  * 

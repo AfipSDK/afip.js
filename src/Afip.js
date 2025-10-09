@@ -83,9 +83,11 @@ function Afip(options = {}){
 	}, function (error) {
 		const newError = new Error(error.message);
 
-		newError.status = error.response.status;
-		newError.statusText = error.response.statusText;
-		newError.data = error.response.data;
+		if (error.response) {
+			newError.status = error.response.status;
+			newError.statusText = error.response.statusText;
+			newError.data = error.response.data;
+		}
 
 		return Promise.reject(newError);
 	});

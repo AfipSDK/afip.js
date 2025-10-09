@@ -1,6 +1,6 @@
 {
   "name": "@afipsdk/afip.js",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Libreria para usar los Web Services de AFIP con JavaScript",
   "main": "src/Afip.js",
   "scripts": {

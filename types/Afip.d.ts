@@ -33,7 +33,10 @@ declare class Afip {
      **/
     WebService(service: string, options?: any): AfipWebService;
     /**
-     * Create AFIP cert
+     * Create AFIP cert.
+     *
+     * **This method is deprecated and will be removed in future major versions.**
+     * @deprecated Use CreateAutomation instead
      *
      * @param {string} username Username used in AFIP page
      * @param {string} password Password used in AFIP page
@@ -43,12 +46,42 @@ declare class Afip {
     /**
      * Create authorization to use a web service
      *
+     * **This method is deprecated and will be removed in future major versions.**
+     * @deprecated Use CreateAutomation instead
+     *
      * @param {string} username Username used in AFIP page
      * @param {string} password Password used in AFIP page
      * @param {string} alias Cert alias
      * @param {string} wsid Web service id
      **/
     CreateWSAuth(username: string, password: string, alias: string, wsid: string): Promise<any>;
+    /**
+     * Create automation
+     *
+     * @param {string} automation Name of the automation
+     * @param {any} params Parameters to send to the automation
+     * @param {boolean} wait Wait for the automation to finish (default true)
+     *
+     * @returns {Promise<{id: string, status: string, data?: any}>}
+     **/
+    CreateAutomation(automation: string, params: any, wait?: boolean): Promise<{
+        id: string;
+        status: string;
+        data?: any;
+    }>;
+    /**
+     * Create automation
+     *
+     * @param {string} id Id of the automation
+     * @param {boolean} wait Wait for the automation to finish (default false)
+     *
+     * @returns {Promise<{id: string, status: string, data?: any}>}
+     **/
+    GetAutomationDetails(id: string, wait?: boolean): Promise<{
+        id: string;
+        status: string;
+        data?: any;
+    }>;
 }
 import ElectronicBilling = require("./Class/ElectronicBilling");
 import RegisterScopeFour = require("./Class/RegisterScopeFour");

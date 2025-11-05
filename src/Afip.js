@@ -259,8 +259,10 @@ Afip.prototype.CreateWSAuth = async function(username, password, alias, wsid) {
  * Create automation
  *
  * @param {string} automation Name of the automation
- * @param {array} params Parameters to send to the automation
+ * @param {any} params Parameters to send to the automation
  * @param {boolean} wait Wait for the automation to finish (default true)
+ * 
+ * @returns {Promise<{id: string, status: string, data?: any}>}
  **/
 Afip.prototype.CreateAutomation = async function(automation, params, wait = true) {
 	// Prepare data to for request
@@ -279,8 +281,10 @@ Afip.prototype.CreateAutomation = async function(automation, params, wait = true
 /**
  * Create automation
  *
- * @param {string} $id Id of the automation
- * @param {boolean} $wait Wait for the automation to finish (default false)
+ * @param {string} id Id of the automation
+ * @param {boolean} wait Wait for the automation to finish (default false)
+ * 
+ * @returns {Promise<{id: string, status: string, data?: any}>}
  **/
 Afip.prototype.GetAutomationDetails = async function(id, wait = false) {
 	// Wait for max 120 seconds

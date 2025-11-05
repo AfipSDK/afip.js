@@ -49,7 +49,7 @@ _Este software y sus desarrolladores no tienen ninguna relación con la AFIP._
 
 <!-- 
 Generate Types:
-npx -p typescript tsc src/**/*.js --declaration --allowJs --emitDeclarationOnly --outDir types 
+npx -p typescript@^4.0.0 tsc src/**/*.js --declaration --allowJs --emitDeclarationOnly --outDir types 
 -->
 
 <!-- MARKDOWN LINKS & IMAGES -->

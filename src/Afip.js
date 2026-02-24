@@ -26,15 +26,16 @@ const RegisterScopeThirteen = require('./Class/RegisterScopeThirteen');
  * @property {boolean} [production=false] Use production environment
  * @property {string} [cert] X.509 certificate in PEM format
  * @property {string} [key] Private key corresponding to cert (PEM)
- * @property {string} [access_token] Access token from AfipSDK
+ * @property {string} access_token Access token from AfipSDK
  */
 
 module.exports = Afip;
 
 /**
- * @param {AfipOptions} [options={}]
+ * @param {AfipOptions} options
  */
-function Afip(options = {}){
+function Afip(options){
+	options = options || {};
 	/**
 	 * SDK version
 	 **/

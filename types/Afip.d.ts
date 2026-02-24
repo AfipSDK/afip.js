@@ -1,13 +1,13 @@
 export = Afip;
 /**
- * @param {AfipOptions} [options={}]
+ * @param {AfipOptions} options
  */
-declare function Afip(options?: AfipOptions): Afip;
+declare function Afip(options: AfipOptions): Afip;
 declare class Afip {
     /**
-     * @param {AfipOptions} [options={}]
+     * @param {AfipOptions} options
      */
-    constructor(options?: AfipOptions);
+    constructor(options: AfipOptions);
     /**
      * SDK version
      **/
@@ -112,7 +112,7 @@ type AfipOptions = {
     /**
      * Access token from AfipSDK
      */
-    access_token?: string;
+    access_token: string;
 };
 import ElectronicBilling = require("./Class/ElectronicBilling");
 import RegisterScopeFour = require("./Class/RegisterScopeFour");

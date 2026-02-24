@@ -1,15 +1,21 @@
 export = Afip;
-declare function Afip(options?: {}): Afip;
+/**
+ * @param {AfipOptions} options
+ */
+declare function Afip(options: AfipOptions): Afip;
 declare class Afip {
-    constructor(options?: {});
+    /**
+     * @param {AfipOptions} options
+     */
+    constructor(options: AfipOptions);
     /**
      * SDK version
      **/
     sdk_version_number: string;
-    options: {};
-    CUIT: any;
-    CERT: any;
-    PRIVATEKEY: any;
+    options: AfipOptions;
+    CUIT: string | number;
+    CERT: string;
+    PRIVATEKEY: string;
     /** @private */
     private AdminClient;
     ElectronicBilling: ElectronicBilling;
@@ -83,6 +89,31 @@ declare class Afip {
         data?: any;
     }>;
 }
+declare namespace Afip {
+    export { AfipOptions };
+}
+type AfipOptions = {
+    /**
+     * Tax ID to use
+     */
+    CUIT?: number | string;
+    /**
+     * Use production environment
+     */
+    production?: boolean;
+    /**
+     * X.509 certificate in PEM format
+     */
+    cert?: string;
+    /**
+     * Private key corresponding to cert (PEM)
+     */
+    key?: string;
+    /**
+     * Access token from AfipSDK
+     */
+    access_token: string;
+};
 import ElectronicBilling = require("./Class/ElectronicBilling");
 import RegisterScopeFour = require("./Class/RegisterScopeFour");
 import RegisterScopeFive = require("./Class/RegisterScopeFive");

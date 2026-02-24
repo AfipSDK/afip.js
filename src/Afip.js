@@ -32,13 +32,7 @@ const RegisterScopeThirteen = require('./Class/RegisterScopeThirteen');
 module.exports = Afip;
 
 /**
- * @param {{
- *  CUIT?: number|string,
- *  production?: boolean,
- *  cert?: string,
- *  key?: string,
- *  access_token?: string
- * }} [options={}]
+ * @param {AfipOptions} [options={}]
  */
 function Afip(options = {}){
 	/**

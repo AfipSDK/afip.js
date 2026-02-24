@@ -1,48 +1,18 @@
 export = Afip;
 /**
- * @param {{
- *  CUIT?: number|string,
- *  production?: boolean,
- *  cert?: string,
- *  key?: string,
- *  access_token?: string
- * }} [options={}]
+ * @param {AfipOptions} [options={}]
  */
-declare function Afip(options?: {
-    CUIT?: number | string;
-    production?: boolean;
-    cert?: string;
-    key?: string;
-    access_token?: string;
-}): Afip;
+declare function Afip(options?: AfipOptions): Afip;
 declare class Afip {
     /**
-     * @param {{
-     *  CUIT?: number|string,
-     *  production?: boolean,
-     *  cert?: string,
-     *  key?: string,
-     *  access_token?: string
-     * }} [options={}]
+     * @param {AfipOptions} [options={}]
      */
-    constructor(options?: {
-        CUIT?: number | string;
-        production?: boolean;
-        cert?: string;
-        key?: string;
-        access_token?: string;
-    });
+    constructor(options?: AfipOptions);
     /**
      * SDK version
      **/
     sdk_version_number: string;
-    options: {
-        CUIT?: number | string;
-        production?: boolean;
-        cert?: string;
-        key?: string;
-        access_token?: string;
-    };
+    options: AfipOptions;
     CUIT: string | number;
     CERT: string;
     PRIVATEKEY: string;
@@ -122,13 +92,6 @@ declare class Afip {
 declare namespace Afip {
     export { AfipOptions };
 }
-import ElectronicBilling = require("./Class/ElectronicBilling");
-import RegisterScopeFour = require("./Class/RegisterScopeFour");
-import RegisterScopeFive = require("./Class/RegisterScopeFive");
-import RegisterInscriptionProof = require("./Class/RegisterInscriptionProof");
-import RegisterScopeTen = require("./Class/RegisterScopeTen");
-import RegisterScopeThirteen = require("./Class/RegisterScopeThirteen");
-import AfipWebService = require("./Class/AfipWebService");
 type AfipOptions = {
     /**
      * Tax ID to use
@@ -151,3 +114,10 @@ type AfipOptions = {
      */
     access_token?: string;
 };
+import ElectronicBilling = require("./Class/ElectronicBilling");
+import RegisterScopeFour = require("./Class/RegisterScopeFour");
+import RegisterScopeFive = require("./Class/RegisterScopeFive");
+import RegisterInscriptionProof = require("./Class/RegisterInscriptionProof");
+import RegisterScopeTen = require("./Class/RegisterScopeTen");
+import RegisterScopeThirteen = require("./Class/RegisterScopeThirteen");
+import AfipWebService = require("./Class/AfipWebService");

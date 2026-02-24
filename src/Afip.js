@@ -19,8 +19,27 @@ const RegisterScopeThirteen = require('./Class/RegisterScopeThirteen');
  * @author Afip SDK <ayuda@afipsdk.com>
  * @package Afip
  **/
+
+/**
+ * @typedef {Object} AfipOptions
+ * @property {number|string} [CUIT] Tax ID to use
+ * @property {boolean} [production=false] Use production environment
+ * @property {string} [cert] X.509 certificate in PEM format
+ * @property {string} [key] Private key corresponding to cert (PEM)
+ * @property {string} [access_token] Access token from AfipSDK
+ */
+
 module.exports = Afip;
 
+/**
+ * @param {{
+ *  CUIT?: number|string,
+ *  production?: boolean,
+ *  cert?: string,
+ *  key?: string,
+ *  access_token?: string
+ * }} [options={}]
+ */
 function Afip(options = {}){
 	/**
 	 * SDK version

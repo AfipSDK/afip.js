@@ -1,15 +1,51 @@
 export = Afip;
-declare function Afip(options?: {}): Afip;
+/**
+ * @param {{
+ *  CUIT?: number|string,
+ *  production?: boolean,
+ *  cert?: string,
+ *  key?: string,
+ *  access_token?: string
+ * }} [options={}]
+ */
+declare function Afip(options?: {
+    CUIT?: number | string;
+    production?: boolean;
+    cert?: string;
+    key?: string;
+    access_token?: string;
+}): Afip;
 declare class Afip {
-    constructor(options?: {});
+    /**
+     * @param {{
+     *  CUIT?: number|string,
+     *  production?: boolean,
+     *  cert?: string,
+     *  key?: string,
+     *  access_token?: string
+     * }} [options={}]
+     */
+    constructor(options?: {
+        CUIT?: number | string;
+        production?: boolean;
+        cert?: string;
+        key?: string;
+        access_token?: string;
+    });
     /**
      * SDK version
      **/
     sdk_version_number: string;
-    options: {};
-    CUIT: any;
-    CERT: any;
-    PRIVATEKEY: any;
+    options: {
+        CUIT?: number | string;
+        production?: boolean;
+        cert?: string;
+        key?: string;
+        access_token?: string;
+    };
+    CUIT: string | number;
+    CERT: string;
+    PRIVATEKEY: string;
     /** @private */
     private AdminClient;
     ElectronicBilling: ElectronicBilling;
@@ -83,6 +119,9 @@ declare class Afip {
         data?: any;
     }>;
 }
+declare namespace Afip {
+    export { AfipOptions };
+}
 import ElectronicBilling = require("./Class/ElectronicBilling");
 import RegisterScopeFour = require("./Class/RegisterScopeFour");
 import RegisterScopeFive = require("./Class/RegisterScopeFive");
@@ -90,3 +129,25 @@ import RegisterInscriptionProof = require("./Class/RegisterInscriptionProof");
 import RegisterScopeTen = require("./Class/RegisterScopeTen");
 import RegisterScopeThirteen = require("./Class/RegisterScopeThirteen");
 import AfipWebService = require("./Class/AfipWebService");
+type AfipOptions = {
+    /**
+     * Tax ID to use
+     */
+    CUIT?: number | string;
+    /**
+     * Use production environment
+     */
+    production?: boolean;
+    /**
+     * X.509 certificate in PEM format
+     */
+    cert?: string;
+    /**
+     * Private key corresponding to cert (PEM)
+     */
+    key?: string;
+    /**
+     * Access token from AfipSDK
+     */
+    access_token?: string;
+};

@@ -26,6 +26,13 @@ module.exports = class ElectronicBilling extends AfipWebService {
 	 * Send a request to Afip SDK server to create a PDF
 	 *
 	 * @param {object} data Data for PDF creation
+	 *
+	 * Supported modes:
+	 * - Legacy: `{ html, file_name?, options? }`
+	 * - Template: `{ template, params, file_name?, options? }`
+	 *
+	 * Template mode lets you render server-side templates by name
+	 * and pass dynamic values with `params`.
 	 **/
 	async createPDF(data)
 	{

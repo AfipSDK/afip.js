@@ -11,6 +11,9 @@ const RegisterInscriptionProof = require('./Class/RegisterInscriptionProof');
 const RegisterScopeTen = require('./Class/RegisterScopeTen');
 const RegisterScopeThirteen = require('./Class/RegisterScopeThirteen');
 
+// Factura SDK: electronic invoicing end to end
+const FacturaSDK = require('./Class/FacturaSDK');
+
 /**
  * Software Development Kit for ARCA web services
  * 
@@ -27,6 +30,7 @@ const RegisterScopeThirteen = require('./Class/RegisterScopeThirteen');
  * @property {string} [cert] X.509 certificate in PEM format
  * @property {string} [key] Private key corresponding to cert (PEM)
  * @property {string} access_token Access token from AfipSDK
+ * @property {string} [facturasdk_access_token] Access token of a Factura SDK project (fsk_dev_… or fsk_prod_…), when access_token is not one. The token decides the environment of afip.FacturaSDK
  */
 
 module.exports = Afip;
@@ -80,13 +84,33 @@ function Afip(options){
 
 	// Create an axios instance for the api
 	/** @private */
-	this.AdminClient = axios.create({
+	this.AdminClient = this.createAdminClient(this.options['access_token'], this.options['production'] === true ? "prod" : "dev");
+
+	this.ElectronicBilling 			= new ElectronicBilling(this);
+	this.RegisterScopeFour 			= new RegisterScopeFour(this);
+	this.RegisterScopeFive 			= new RegisterScopeFive(this);
+	this.RegisterInscriptionProof 	= new RegisterInscriptionProof(this);
+	this.RegisterScopeTen 			= new RegisterScopeTen(this);
+	this.RegisterScopeThirteen 		= new RegisterScopeThirteen(this);
+	this.FacturaSDK 				= new FacturaSDK(this);
+}
+
+/**
+ * Create an axios instance for the Afip SDK api
+ *
+ * @param {string} accessToken Access token sent as Bearer token
+ * @param {string} environment Environment reported to the api (dev or prod)
+ *
+ * @private
+ **/
+Afip.prototype.createAdminClient = function(accessToken, environment) {
+	const client = axios.create({
 		baseURL: 'https://app.afipsdk.com/api/',
 		timeout: 30000
 	});
 
 	// Config default response to avoid send all data in errors
-	this.AdminClient.interceptors.response.use(function (response) {
+	client.interceptors.response.use(function (response) {
 		const newResponse = {
 			status: response.status,
 			statusText: response.statusText,
@@ -106,20 +130,15 @@ function Afip(options){
 		return Promise.reject(newError);
 	});
 
-	this.AdminClient.defaults.headers.common['sdk-version-number'] = this.sdk_version_number;
-	this.AdminClient.defaults.headers.common['sdk-library'] = 'javascript';
-	this.AdminClient.defaults.headers.common['sdk-environment'] = this.options['production'] === true ? "prod" : "dev";
+	client.defaults.headers.common['sdk-version-number'] = this.sdk_version_number;
+	client.defaults.headers.common['sdk-library'] = 'javascript';
+	client.defaults.headers.common['sdk-environment'] = environment;
 
-	if (this.options['access_token']) {
-		this.AdminClient.defaults.headers.common['Authorization'] = `Bearer ${this.options['access_token']}`;
+	if (accessToken) {
+		client.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
 	}
 
-	this.ElectronicBilling 			= new ElectronicBilling(this);
-	this.RegisterScopeFour 			= new RegisterScopeFour(this);
-	this.RegisterScopeFive 			= new RegisterScopeFive(this);
-	this.RegisterInscriptionProof 	= new RegisterInscriptionProof(this);
-	this.RegisterScopeTen 			= new RegisterScopeTen(this);
-	this.RegisterScopeThirteen 		= new RegisterScopeThirteen(this);
+	return client;
 }
 
 /**

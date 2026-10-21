@@ -24,6 +24,8 @@ declare class Afip {
     RegisterInscriptionProof: RegisterInscriptionProof;
     RegisterScopeTen: RegisterScopeTen;
     RegisterScopeThirteen: RegisterScopeThirteen;
+    FacturaSDK: FacturaSDK;
+    private createAdminClient;
     private GetServiceTA;
     /**
      * Get last request and last response XML
@@ -113,6 +115,10 @@ type AfipOptions = {
      * Access token from AfipSDK
      */
     access_token: string;
+    /**
+     * Access token of a Factura SDK project (fsk_dev_… or fsk_prod_…), when access_token is not one. The token decides the environment of afip.FacturaSDK
+     */
+    facturasdk_access_token?: string;
 };
 import ElectronicBilling = require("./Class/ElectronicBilling");
 import RegisterScopeFour = require("./Class/RegisterScopeFour");
@@ -120,4 +126,5 @@ import RegisterScopeFive = require("./Class/RegisterScopeFive");
 import RegisterInscriptionProof = require("./Class/RegisterInscriptionProof");
 import RegisterScopeTen = require("./Class/RegisterScopeTen");
 import RegisterScopeThirteen = require("./Class/RegisterScopeThirteen");
+import FacturaSDK = require("./Class/FacturaSDK");
 import AfipWebService = require("./Class/AfipWebService");

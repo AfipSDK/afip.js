@@ -46,7 +46,7 @@ const invoice = await afip.FacturaSDK.createInvoice(data, { idempotency_key: 've
 const event = afip.FacturaSDK.constructWebhookEvent(rawBody, signatureHeader, secret);
 ```
 
-Emisores, certificados, comprobantes, webhooks y automatizaciones están en `afip.FacturaSDK` ([ejemplo completo](examples/facturaSdkCreateInvoice.js)). Si además usás los web services de Afip SDK, pasá el token de Factura SDK en `facturasdk_access_token`.
+Emisores, certificados, comprobantes, webhooks y automatizaciones están en `afip.FacturaSDK` ([ejemplo completo](examples/facturaSdkCreateInvoice.js)).
 
 <!-- COMUNITY -->
 ## Comunidad

@@ -115,10 +115,6 @@ type AfipOptions = {
      * Access token from AfipSDK
      */
     access_token: string;
-    /**
-     * Access token of a Factura SDK project (fsk_dev_… or fsk_prod_…), when access_token is not one. The token decides the environment of afip.FacturaSDK
-     */
-    facturasdk_access_token?: string;
 };
 import ElectronicBilling = require("./Class/ElectronicBilling");
 import RegisterScopeFour = require("./Class/RegisterScopeFour");

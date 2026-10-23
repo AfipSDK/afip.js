@@ -30,7 +30,6 @@ const FacturaSDK = require('./Class/FacturaSDK');
  * @property {string} [cert] X.509 certificate in PEM format
  * @property {string} [key] Private key corresponding to cert (PEM)
  * @property {string} access_token Access token from AfipSDK
- * @property {string} [facturasdk_access_token] Access token of a Factura SDK project (fsk_dev_… or fsk_prod_…), when access_token is not one. The token decides the environment of afip.FacturaSDK
  */
 
 module.exports = Afip;

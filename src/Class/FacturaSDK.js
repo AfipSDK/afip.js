@@ -38,13 +38,9 @@ module.exports = class FacturaSDK {
 		 **/
 		this.afip = afip;
 
-		// Own token when the project of Afip SDK is another one; otherwise the access token of Afip
-		const accessToken = afip.options['facturasdk_access_token'];
-
+		// The requests go with the access token of Afip; the token decides the environment
 		/** @private */
-		this.client = accessToken
-			? afip.createAdminClient(accessToken, /^fsk_prod_/.test(accessToken) ? 'prod' : 'dev')
-			: afip.AdminClient;
+		this.client = afip.AdminClient;
 	}
 
 	// Invoices

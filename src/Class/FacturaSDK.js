@@ -53,7 +53,7 @@ module.exports = class FacturaSDK {
 	 * webhook. With `wait` the method polls until the invoice is decided;
 	 * with `sync: true` in the data Factura SDK decides it within the request.
 	 *
-	 * @param {object} data Invoice data {@see https://afipsdk.com/docs/facturasdk/invoices}
+	 * @param {object} data Invoice data {@see https://afipsdk.com/docs/facturasdk/invoices}. In the sandbox, `sandbox: { result }` forces the outcome
 	 * @param {CreateInvoiceOptions} [options]
 	 *
 	 * @return {Promise<any>} The invoice
@@ -319,7 +319,7 @@ module.exports = class FacturaSDK {
 	/**
 	 * List certificates, with cursor pagination
 	 *
-	 * @param {object} [params] Filters: tax_id, status, limit, cursor
+	 * @param {object} [params] Filters: tax_id, search, status, limit, cursor
 	 *
 	 * @return {Promise<{data: any[], next_cursor: string|null, total_count: number}>}
 	 **/
@@ -336,6 +336,37 @@ module.exports = class FacturaSDK {
 	 **/
 	async revokeCertificate(id) {
 		return this.request('post', `certificates/${id}/revoke`);
+	}
+
+	/**
+	 * Renew a certificate in place: it keeps its id, so the issuers that use
+	 * it keep invoicing with the new one
+	 *
+	 * Uploaded (cert and key in PEM) it answers the certificate. Renewed in
+	 * ARCA (source "automation", with username and password) it is an
+	 * automation: with `wait` returns it finished, with the certificate and
+	 * `renewed: true` in `data`. A revoked certificate can not be renewed
+	 *
+	 * @param {string} id Id of the certificate
+	 * @param {object} data Certificate data {@see https://afipsdk.com/docs/facturasdk/certificates}
+	 * @param {boolean} [wait=true] Wait for the automation to finish
+	 *
+	 * @return {Promise<any>} The certificate, or the automation
+	 **/
+	async renewCertificate(id, data, wait = true) {
+		return this.automation(this.request('post', `certificates/${id}/renew`, { data }), wait);
+	}
+
+	/**
+	 * Delete a certificate: it disappears from the project without being
+	 * revoked in ARCA. The issuers that used it keep their reference
+	 *
+	 * @param {string} id Id of the certificate
+	 *
+	 * @return {Promise<void>}
+	 **/
+	async deleteCertificate(id) {
+		await this.request('delete', `certificates/${id}`);
 	}
 
 	/**
@@ -382,7 +413,7 @@ module.exports = class FacturaSDK {
 	/**
 	 * List webhook endpoints
 	 *
-	 * @param {object} [params] Filters: status
+	 * @param {object} [params] Filters: status, limit, cursor
 	 *
 	 * @return {Promise<{data: any[], next_cursor: string|null, total_count: number}>}
 	 **/

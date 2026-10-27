@@ -24,6 +24,8 @@ declare class Afip {
     RegisterInscriptionProof: RegisterInscriptionProof;
     RegisterScopeTen: RegisterScopeTen;
     RegisterScopeThirteen: RegisterScopeThirteen;
+    FacturaSDK: FacturaSDK;
+    private createAdminClient;
     private GetServiceTA;
     /**
      * Get last request and last response XML
@@ -120,4 +122,5 @@ import RegisterScopeFive = require("./Class/RegisterScopeFive");
 import RegisterInscriptionProof = require("./Class/RegisterInscriptionProof");
 import RegisterScopeTen = require("./Class/RegisterScopeTen");
 import RegisterScopeThirteen = require("./Class/RegisterScopeThirteen");
+import FacturaSDK = require("./Class/FacturaSDK");
 import AfipWebService = require("./Class/AfipWebService");

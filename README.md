@@ -30,6 +30,24 @@
 ## Documentación
 [Explorar documentación](https://docs.afipsdk.com)
 
+<!-- FACTURA SDK -->
+## Factura SDK
+La librería también incluye [Factura SDK](https://afipsdk.com/docs/facturasdk/), para emitir comprobantes de punta a punta (certificado, punto de venta, autorización en ARCA, PDF y webhooks) con el access token de un proyecto Factura SDK:
+
+```js
+const Afip = require('@afipsdk/afip.js');
+
+const afip = new Afip({ access_token: 'fsk_dev_…' });
+
+// Responde enseguida con el comprobante en cola; el resultado llega a tu webhook
+const invoice = await afip.FacturaSDK.createInvoice(data, { idempotency_key: 'venta-0001' });
+
+// En tu endpoint de webhook: verifica la firma y devuelve el evento
+const event = afip.FacturaSDK.constructWebhookEvent(rawBody, signatureHeader, secret);
+```
+
+Emisores, certificados, comprobantes, webhooks y automatizaciones están en `afip.FacturaSDK` ([ejemplo completo](examples/facturaSdkCreateInvoice.js)).
+
 <!-- COMUNITY -->
 ## Comunidad
 [Comunidad Afip SDK](https://discord.gg/A6TuHEyAZm)
